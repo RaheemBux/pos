@@ -19,7 +19,7 @@ public class Home extends javax.swing.JFrame {
      */
     public Home() {
         initComponents();
-         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         setBounds(100, 100, (int) dim.getWidth(), (int) dim.getHeight());
         setLocationRelativeTo(null);
     }
