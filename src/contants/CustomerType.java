@@ -12,5 +12,6 @@ package contants;
 public enum CustomerType {
     CUSTOMER,
     VENDOR,
-    CUST_VEND
+    CUSTOMER_VENDOR
+    
 }

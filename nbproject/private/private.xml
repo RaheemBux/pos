@@ -3,28 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/contants/CustomerType.java</file>
             <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/ui/Home.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/daoimpl/ProductDAOImpl.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/daoimpl/UserDAOImpl.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/dao/ProductDAO.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/ui/CustomerFrame.java</file>
             <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/ui/Login.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/contants/Unit.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/contants/PaymentType.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/dao/CustomerDAO.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/model/Product.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/dao/SalesDAO.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/dbmanager/DBConnection.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/daoimpl/CustomerDAOImpl.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/model/Customer.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/daoimpl/PurchaseDAOImpl.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/model/User.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/dao/UserDAO.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/dao/TestDAO.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/model/Sales.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/daoimpl/SalesDAOImpl.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/model/Purchase.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/dao/PurchaseDAO.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/ui/UserFrame.java</file>
         </group>
     </open-files>
 </project-private>
