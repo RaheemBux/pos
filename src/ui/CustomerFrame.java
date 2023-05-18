@@ -5,12 +5,13 @@
  */
 package ui;
 
-import dao.UserDAO;
-import daoimpl.UserDAOImpl;
+import contants.CustomerType;
+import dao.CustomerDAO;
+import daoimpl.CustomerDAOImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.User;
+import model.Customer;
 
 /**
  *
@@ -21,15 +22,13 @@ public class CustomerFrame extends javax.swing.JFrame {
     /**
      * Creates new form RegisterFrame
      */
-    Object columns[] = {"Id", "Name", "Email", "Password", "Phone", "Address"};
+    Object columns[] = {"Id", "Name", "Email", "Type", "Phone", "Address"};
 
     DefaultTableModel defaultTableModel = new DefaultTableModel(columns, 0);
 
-    private static Integer userId = 0;
+    private static Integer customerId = 0;
 
-    UserDAO userDAO = new UserDAOImpl();
-
-    ;
+    CustomerDAO customerDAO = new CustomerDAOImpl();
 
     public CustomerFrame() {
         initComponents();
@@ -43,51 +42,51 @@ public class CustomerFrame extends javax.swing.JFrame {
 
     public boolean isAnyFieldsEmpty() {
         if (nameField.getText().equals("") || emailField.getText().equals("") || phoneField.getText().equals("")
-                || passwordField.getText().equals("") || addressField.getText().equals("") || addressField.getText().equals("")) {
+                || addressField.getText().equals("") || addressField.getText().equals("")) {
             return true;
 
         }
         return false;
     }
 
-    public void setFields(User user) {
-        nameField.setText(user.getName());
-        emailField.setText(user.getEmail());
-        phoneField.setText(user.getContact());
-        passwordField.setText(user.getPassword());
-        addressField.setText(user.getAddress());
+    public void setFields(Customer customer) {
+        nameField.setText(customer.getName());
+        emailField.setText(customer.getEmail());
+        phoneField.setText(customer.getContact());
+        addressField.setText(customer.getAddress());
+        customerCombo.setSelectedItem(customer.getCustomerType());
     }
 
-    public User getUser() {
+    public Customer getCustomer() {
         String name = nameField.getText();
         String email = emailField.getText();
         String contact = phoneField.getText();
         String address = addressField.getText();
-        String password = passwordField.getText();
-        User user = new User(0, name, email, password, contact, address);
-        return user;
+        String customerType = customerCombo.getSelectedItem().toString();
+        Customer customer = new Customer(0, name, email, contact, address, CustomerType.valueOf(customerType));
+        return customer;
     }
 
     public void clearFields() {
         nameField.setText("");
         emailField.setText("");
-        passwordField.setText("");
         phoneField.setText("");
         addressField.setText("");
+        customerCombo.setSelectedIndex(0);
     }
 
     public void fillTable() {
         defaultTableModel = new DefaultTableModel(columns, 0);
-        List<User> users = userDAO.getAllUsers();
+        List<Customer> customers = customerDAO.getAllCustomers();
 
-        for (User u : users) {
-            Object row[] = {u.getUserId(), u.getName(), u.getEmail(), u.getPassword(), u.getContact(), u.getAddress()};
+        for (Customer c : customers) {
+            Object row[] = {c.getCustomerId(), c.getName(), c.getEmail(), c.getCustomerType(), c.getContact(), c.getAddress()};
             defaultTableModel.addRow(row);
-            usersTable.setModel(defaultTableModel);
+            customerTable.setModel(defaultTableModel);
         }
-        usersTable.getColumnModel().getColumn(0).setWidth(0);
-        usersTable.getColumnModel().getColumn(0).setMinWidth(0);
-        usersTable.getColumnModel().getColumn(0).setMaxWidth(0);
+        customerTable.getColumnModel().getColumn(0).setWidth(0);
+        customerTable.getColumnModel().getColumn(0).setMinWidth(0);
+        customerTable.getColumnModel().getColumn(0).setMaxWidth(0);
 
     }
 
@@ -109,20 +108,20 @@ public class CustomerFrame extends javax.swing.JFrame {
         addressLbl = new javax.swing.JLabel();
         emailField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        usersTable = new javax.swing.JTable();
+        customerTable = new javax.swing.JTable();
         addBtn = new javax.swing.JButton();
         editBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
         addressField = new javax.swing.JTextField();
         backBtn = new javax.swing.JButton();
-        passwordLbl = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        customerLbl = new javax.swing.JLabel();
+        customerCombo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         headerLbl.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         headerLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        headerLbl.setText("User Details");
+        headerLbl.setText("Customer Details");
 
         nameLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         nameLbl.setText("Name");
@@ -142,8 +141,8 @@ public class CustomerFrame extends javax.swing.JFrame {
 
         emailField.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
-        usersTable.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        usersTable.setModel(new javax.swing.table.DefaultTableModel(
+        customerTable.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        customerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -154,12 +153,12 @@ public class CustomerFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        usersTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        customerTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                usersTableMouseClicked(evt);
+                customerTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(usersTable);
+        jScrollPane1.setViewportView(customerTable);
 
         addBtn.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         addBtn.setText("Add");
@@ -195,13 +194,13 @@ public class CustomerFrame extends javax.swing.JFrame {
             }
         });
 
-        passwordLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        passwordLbl.setText("Customer Type");
+        customerLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        customerLbl.setText("Customer Type");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Customer", "Vendor", "Cutomer-Vendor" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        customerCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CUSTOMER", "VENDOR", "CUSTOMER_VENDOR" }));
+        customerCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                customerComboActionPerformed(evt);
             }
         });
 
@@ -231,13 +230,13 @@ public class CustomerFrame extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(addressLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(nameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(passwordLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(customerLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(customerCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(30, 30, 30)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(layout.createSequentialGroup()
@@ -270,8 +269,8 @@ public class CustomerFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(4, 4, 4)
-                                .addComponent(jComboBox1))
-                            .addComponent(passwordLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(customerCombo))
+                            .addComponent(customerLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(emailLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,23 +296,23 @@ public class CustomerFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usersTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersTableMouseClicked
-        userId = (Integer) usersTable.getValueAt(usersTable.getSelectedRow(), 0);
+    private void customerTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customerTableMouseClicked
+        customerId = (Integer) customerTable.getValueAt(customerTable.getSelectedRow(), 0);
         editBtn.setEnabled(true);
         deleteBtn.setEnabled(true);
-        User existingUser = userDAO.getUserById(userId);
-        setFields(existingUser);
+        Customer existingCustomer = customerDAO.getCustomerById(customerId);
+        setFields(existingCustomer);
 
-    }//GEN-LAST:event_usersTableMouseClicked
+    }//GEN-LAST:event_customerTableMouseClicked
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         if (isAnyFieldsEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill all fields!!");
         } else {
-            User user = getUser();
-            boolean b = userDAO.addUser(user);
+            Customer customer = getCustomer();
+            boolean b = customerDAO.addCustomer(customer);
             if (b) {
-                JOptionPane.showMessageDialog(this, "User Added Successfully");
+                JOptionPane.showMessageDialog(this, "Customer Added Successfully");
                 fillTable();
                 clearFields();
             }
@@ -325,11 +324,11 @@ public class CustomerFrame extends javax.swing.JFrame {
         if (isAnyFieldsEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill all fields!!");
         } else {
-            User user = getUser();
-            user.setUserId(userId);
-            boolean b = userDAO.addUser(user);
+            Customer customer = getCustomer();
+            customer.setCustomerId(customerId);
+            boolean b = customerDAO.updateCustomer(customer);
             if (b) {
-                JOptionPane.showMessageDialog(this, "User Updated Successfully");
+                JOptionPane.showMessageDialog(this, "Customer Updated Successfully");
                 fillTable();
                 clearFields();
                 editBtn.setEnabled(false);
@@ -341,10 +340,10 @@ public class CustomerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        userId = (Integer) usersTable.getValueAt(usersTable.getSelectedRow(), 0);
-        boolean b = userDAO.deleteUser(userId);
+        customerId = (Integer) customerTable.getValueAt(customerTable.getSelectedRow(), 0);
+        boolean b = customerDAO.deleteCustomer(customerId);
         if (b) {
-            JOptionPane.showMessageDialog(this, "User Deleted Successfully");
+            JOptionPane.showMessageDialog(this, "Customer Deleted Successfully");
             fillTable();
             clearFields();
             editBtn.setEnabled(false);
@@ -358,9 +357,9 @@ public class CustomerFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_backBtnActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void customerComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerComboActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_customerComboActionPerformed
 
     /**
      * @param args the command line arguments
@@ -465,18 +464,18 @@ public class CustomerFrame extends javax.swing.JFrame {
     private javax.swing.JTextField addressField;
     private javax.swing.JLabel addressLbl;
     private javax.swing.JButton backBtn;
+    private javax.swing.JComboBox<String> customerCombo;
+    private javax.swing.JLabel customerLbl;
+    private javax.swing.JTable customerTable;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JButton editBtn;
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel emailLbl;
     private javax.swing.JLabel headerLbl;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nameLbl;
-    private javax.swing.JLabel passwordLbl;
     private javax.swing.JTextField phoneField;
     private javax.swing.JLabel phoneLbl;
-    private javax.swing.JTable usersTable;
     // End of variables declaration//GEN-END:variables
 }

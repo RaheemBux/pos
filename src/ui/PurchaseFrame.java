@@ -43,7 +43,7 @@ public class PurchaseFrame extends javax.swing.JFrame {
 
     public boolean isAnyFieldsEmpty() {
         if (nameField.getText().equals("") || emailField.getText().equals("") || phoneField.getText().equals("")
-                || passwordField.getText().equals("") || addressField.getText().equals("") || addressField.getText().equals("")) {
+                || addressField.getText().equals("") || addressField.getText().equals("")) {
             return true;
 
         }
@@ -54,7 +54,6 @@ public class PurchaseFrame extends javax.swing.JFrame {
         nameField.setText(user.getName());
         emailField.setText(user.getEmail());
         phoneField.setText(user.getContact());
-        passwordField.setText(user.getPassword());
         addressField.setText(user.getAddress());
     }
 
@@ -63,15 +62,13 @@ public class PurchaseFrame extends javax.swing.JFrame {
         String email = emailField.getText();
         String contact = phoneField.getText();
         String address = addressField.getText();
-        String password = passwordField.getText();
-        User user = new User(0, name, email, password, contact, address);
+        User user = new User(0, name, email, null, contact, address);
         return user;
     }
 
     public void clearFields() {
         nameField.setText("");
         emailField.setText("");
-        passwordField.setText("");
         phoneField.setText("");
         addressField.setText("");
     }
@@ -83,11 +80,11 @@ public class PurchaseFrame extends javax.swing.JFrame {
         for (User u : users) {
             Object row[] = {u.getUserId(), u.getName(), u.getEmail(), u.getPassword(), u.getContact(), u.getAddress()};
             defaultTableModel.addRow(row);
-            usersTable.setModel(defaultTableModel);
+            purchasedFrame.setModel(defaultTableModel);
         }
-        usersTable.getColumnModel().getColumn(0).setWidth(0);
-        usersTable.getColumnModel().getColumn(0).setMinWidth(0);
-        usersTable.getColumnModel().getColumn(0).setMaxWidth(0);
+        purchasedFrame.getColumnModel().getColumn(0).setWidth(0);
+        purchasedFrame.getColumnModel().getColumn(0).setMinWidth(0);
+        purchasedFrame.getColumnModel().getColumn(0).setMaxWidth(0);
 
     }
 
@@ -109,7 +106,7 @@ public class PurchaseFrame extends javax.swing.JFrame {
         addressLbl = new javax.swing.JLabel();
         emailField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        usersTable = new javax.swing.JTable();
+        purchasedFrame = new javax.swing.JTable();
         addBtn = new javax.swing.JButton();
         editBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
@@ -142,8 +139,8 @@ public class PurchaseFrame extends javax.swing.JFrame {
 
         emailField.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
 
-        usersTable.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        usersTable.setModel(new javax.swing.table.DefaultTableModel(
+        purchasedFrame.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        purchasedFrame.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -154,12 +151,12 @@ public class PurchaseFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        usersTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        purchasedFrame.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                usersTableMouseClicked(evt);
+                purchasedFrameMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(usersTable);
+        jScrollPane1.setViewportView(purchasedFrame);
 
         addBtn.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         addBtn.setText("Add");
@@ -297,14 +294,14 @@ public class PurchaseFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void usersTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersTableMouseClicked
-        userId = (Integer) usersTable.getValueAt(usersTable.getSelectedRow(), 0);
+    private void purchasedFrameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_purchasedFrameMouseClicked
+        userId = (Integer) purchasedFrame.getValueAt(purchasedFrame.getSelectedRow(), 0);
         editBtn.setEnabled(true);
         deleteBtn.setEnabled(true);
         User existingUser = userDAO.getUserById(userId);
         setFields(existingUser);
 
-    }//GEN-LAST:event_usersTableMouseClicked
+    }//GEN-LAST:event_purchasedFrameMouseClicked
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         if (isAnyFieldsEmpty()) {
@@ -341,7 +338,7 @@ public class PurchaseFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_editBtnActionPerformed
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
-        userId = (Integer) usersTable.getValueAt(usersTable.getSelectedRow(), 0);
+        userId = (Integer) purchasedFrame.getValueAt(purchasedFrame.getSelectedRow(), 0);
         boolean b = userDAO.deleteUser(userId);
         if (b) {
             JOptionPane.showMessageDialog(this, "User Deleted Successfully");
@@ -541,6 +538,6 @@ public class PurchaseFrame extends javax.swing.JFrame {
     private javax.swing.JLabel passwordLbl;
     private javax.swing.JTextField phoneField;
     private javax.swing.JLabel phoneLbl;
-    private javax.swing.JTable usersTable;
+    private javax.swing.JTable purchasedFrame;
     // End of variables declaration//GEN-END:variables
 }

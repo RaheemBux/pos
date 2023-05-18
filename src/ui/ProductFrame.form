@@ -32,7 +32,7 @@
                       <Component id="headerLbl" min="-2" pref="382" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="213" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="223" max="-2" attributes="0"/>
                       <Component id="addBtn" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
                       <Component id="editBtn" min="-2" pref="150" max="-2" attributes="0"/>
@@ -40,18 +40,17 @@
                       <Component id="deleteBtn" min="-2" pref="160" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane1" min="-2" pref="827" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                               <Component id="nameLbl" min="-2" pref="122" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                               <Component id="nameField" min="-2" pref="269" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="emailLbl" min="-2" pref="98" max="-2" attributes="0"/>
+                              <Component id="codeLbl" min="-2" pref="98" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Component id="emailField" min="-2" pref="273" max="-2" attributes="0"/>
+                              <Component id="codeField" min="-2" pref="273" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -75,18 +74,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="nameLbl" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="nameField" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="emailLbl" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="emailField" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="codeLbl" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="codeField" min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="addBtn" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="editBtn" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="deleteBtn" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="280" max="-2" attributes="0"/>
-              <EmptySpace pref="132" max="32767" attributes="0"/>
+              <EmptySpace pref="61" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -116,7 +115,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="emailLbl">
+    <Component class="javax.swing.JLabel" name="codeLbl">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="18" style="1"/>
@@ -124,7 +123,7 @@
         <Property name="text" type="java.lang.String" value="Code"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="emailField">
+    <Component class="javax.swing.JTextField" name="codeField">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="18" style="0"/>
@@ -138,7 +137,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="usersTable">
+        <Component class="javax.swing.JTable" name="productTable">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="18" style="0"/>
@@ -156,7 +155,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="usersTableMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="productTableMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>
