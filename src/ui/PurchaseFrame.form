@@ -23,105 +23,102 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="addBtn" min="-2" pref="150" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+              <Component id="editBtn" min="-2" pref="150" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+              <Component id="deleteBtn" min="-2" pref="160" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="212" max="-2" attributes="0"/>
+          </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                       <Component id="backBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="210" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="184" max="-2" attributes="0"/>
                       <Component id="headerLbl" min="-2" pref="382" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="827" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                      <Component id="passwordLbl" min="-2" pref="129" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="425" max="-2" attributes="0"/>
-                      <Component id="jComboBox3" min="-2" pref="287" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="213" max="-2" attributes="0"/>
-                              <Component id="addBtn" min="-2" pref="150" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                              <Component id="editBtn" min="-2" pref="150" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                      <Component id="jComboBox1" min="-2" pref="273" max="-2" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <Component id="nameLbl" min="-2" pref="122" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                          <Component id="nameField" min="-2" pref="269" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
-                                      <Component id="addressField2" min="-2" pref="273" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                                              <Component id="addressLbl2" min="-2" pref="91" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="addressLbl" min="-2" pref="100" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                                              <Component id="addressField" min="-2" pref="273" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                              </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="nameLbl" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  <Component id="addressLbl" min="-2" pref="100" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                                      <Component id="quantityField" min="-2" pref="250" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                                                      <Component id="priceField" min="-2" pref="259" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="remainingLbl" min="-2" pref="100" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="remainingAmountField" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                      <Component id="addressLbl4" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
+                                      <Component id="customerCombo" min="-2" pref="252" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="emailLbl" min="-2" pref="98" max="-2" attributes="0"/>
                                           <Component id="addressLbl1" min="-2" pref="100" max="-2" attributes="0"/>
-                                          <Component id="phoneLbl" min="-2" pref="101" max="-2" attributes="0"/>
+                                          <Component id="phoneLbl" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
+                                          <Component id="pNumberLbl" min="-2" pref="103" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="addressLbl4" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="unitCombo" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="paidAmountField" alignment="0" min="-2" pref="287" max="-2" attributes="0"/>
                                   </Group>
+                                  <Component id="paymentTypeCombo" min="-2" pref="287" max="-2" attributes="0"/>
+                                  <Component id="numberValueLbl" alignment="1" min="-2" pref="287" max="-2" attributes="0"/>
+                                  <Component id="productCombo" alignment="1" min="-2" pref="287" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="addressLbl2" min="-2" pref="91" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="vatCheck" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jComboBox2" alignment="0" pref="287" max="32767" attributes="0"/>
-                              <Component id="addressField1" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="purchaseDateLbl" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="purchaseDateField" min="-2" pref="252" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                              <Component id="deleteBtn" min="-2" pref="160" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jComboBox4" min="-2" pref="287" max="-2" attributes="0"/>
+                          <Component id="passwordLbl" min="-2" pref="86" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="111" max="32767" attributes="0"/>
-          </Group>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                  <Component id="addressLbl3" min="-2" pref="100" max="-2" attributes="0"/>
-                  <EmptySpace pref="858" max="32767" attributes="0"/>
-              </Group>
+              <EmptySpace min="310" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -133,61 +130,67 @@
                   <Component id="backBtn" min="-2" max="-2" attributes="0"/>
                   <Component id="headerLbl" min="-2" pref="66" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                      <Component id="jComboBox1" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                      <Component id="passwordLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="numberValueLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="purchaseDateLbl" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="pNumberLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="purchaseDateField" min="-2" pref="40" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="customerCombo" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="passwordLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="phoneLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="productCombo" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="phoneLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="jComboBox3" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="emailLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="unitCombo" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="quantityField" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="nameLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="emailLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="jComboBox2" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="nameField" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="nameLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="addressField" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="priceField" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="addressLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="addressLbl1" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="addressField1" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="paidAmountField" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="addressField2" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="remainingAmountField" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="addressLbl4" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="jComboBox4" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="paymentTypeCombo" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="remainingLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="addressLbl2" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
+                  <Component id="vatCheck" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="addBtn" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="editBtn" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="deleteBtn" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="280" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-          </Group>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="360" max="-2" attributes="0"/>
-                  <Component id="addressLbl3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace pref="583" max="32767" attributes="0"/>
-              </Group>
+              <EmptySpace pref="102" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -208,13 +211,6 @@
           <Font name="Times New Roman" size="18" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Quantity"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="nameField">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="18" style="0"/>
-        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="phoneLbl">
@@ -248,7 +244,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="purchasedFrame">
+        <Component class="javax.swing.JTable" name="purchaseTable">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="18" style="0"/>
@@ -266,7 +262,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="purchasedFrameMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="purchaseTableMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>
@@ -304,7 +300,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteBtnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="addressField">
+    <Component class="javax.swing.JTextField" name="priceField">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="18" style="0"/>
@@ -330,7 +326,7 @@
         <Property name="text" type="java.lang.String" value="Customer"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox1">
+    <Component class="javax.swing.JComboBox" name="customerCombo">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
@@ -342,13 +338,13 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="customerComboActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox2">
+    <Component class="javax.swing.JComboBox" name="unitCombo">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="2">
@@ -358,13 +354,13 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="unitComboActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox3">
+    <Component class="javax.swing.JComboBox" name="productCombo">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
@@ -375,7 +371,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="productComboActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -389,7 +385,7 @@
         <Property name="text" type="java.lang.String" value="Paid"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="addressField1">
+    <Component class="javax.swing.JTextField" name="paidAmountField">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="18" style="0"/>
@@ -404,14 +400,14 @@
         <Property name="text" type="java.lang.String" value="VAT"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="addressField2">
+    <Component class="javax.swing.JTextField" name="remainingAmountField">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="18" style="0"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="addressLbl3">
+    <Component class="javax.swing.JLabel" name="remainingLbl">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="18" style="1"/>
@@ -419,7 +415,7 @@
         <Property name="text" type="java.lang.String" value="Remainig"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jComboBox4">
+    <Component class="javax.swing.JComboBox" name="paymentTypeCombo">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
@@ -430,7 +426,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox4ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="paymentTypeComboActionPerformed"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -444,10 +440,41 @@
         <Property name="text" type="java.lang.String" value="Payment Type"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+    <Component class="javax.swing.JCheckBox" name="vatCheck">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vatCheckActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="quantityField">
+    </Component>
+    <Component class="javax.swing.JLabel" name="numberValueLbl">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Purchase #"/>
+      </Properties>
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="purchaseDateField">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="purchaseDateLbl">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Purchase Date"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="pNumberLbl">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Purchase #"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
