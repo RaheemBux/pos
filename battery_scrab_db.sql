@@ -29,11 +29,11 @@ CREATE TABLE `customers` (
   `customer_type` enum('CUSTOMER','VENDOR','CUSTOMER_VENDOR') NOT NULL,
   PRIMARY KEY (`customer_id`),
   UNIQUE KEY `customer_id_UNIQUE` (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `customers` */
 
-insert  into `customers`(`customer_id`,`name`,`email`,`contact`,`address`,`customer_type`) values (1,'Test','test@gmail.com','78978789789','Habbibb','CUSTOMER');
+insert  into `customers`(`customer_id`,`name`,`email`,`contact`,`address`,`customer_type`) values (1,'Test','test@gmail.com','78978789789','Habbibb','CUSTOMER'),(3,'Vendor1','vendor1@gmail.com','09242425','UAE','VENDOR'),(4,'Vendor2','vendor2@gmail.com','09242425232','DUBAI','VENDOR');
 
 /*Table structure for table `product` */
 
@@ -64,10 +64,10 @@ CREATE TABLE `purchase` (
   `purchase_date` datetime DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL,
   `unit` enum('KG','MT') DEFAULT NULL,
-  `price` int(11) DEFAULT NULL,
-  `amount_paid` int(11) DEFAULT NULL,
-  `amount_remaining` int(11) DEFAULT NULL,
-  `total_amount` int(11) DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `amount_paid` double DEFAULT NULL,
+  `amount_remaining` double DEFAULT NULL,
+  `total_amount` double DEFAULT NULL,
   `purchase_number` varchar(45) DEFAULT NULL,
   `payment_type` enum('CASH','CHEQUE','ONLINE') DEFAULT NULL,
   `is_taxable` tinyint(1) DEFAULT NULL,
@@ -77,9 +77,11 @@ CREATE TABLE `purchase` (
   KEY `customer_id` (`customer_id`),
   CONSTRAINT `purchase_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`),
   CONSTRAINT `purchased_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `purchase` */
+
+insert  into `purchase`(`purchase_id`,`product_id`,`customer_id`,`purchase_date`,`quantity`,`unit`,`price`,`amount_paid`,`amount_remaining`,`total_amount`,`purchase_number`,`payment_type`,`is_taxable`) values (1,1,4,'2023-05-18 00:00:00',4,'KG',1000,500,3500,4000,'NM-20230520011329','CASH',NULL),(2,1,3,'2023-05-20 00:00:00',3,'MT',5000,10000,5000,15000,'NM-20230520021256','CASH',1);
 
 /*Table structure for table `sales` */
 

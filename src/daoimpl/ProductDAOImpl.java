@@ -111,4 +111,28 @@ public class ProductDAOImpl implements ProductDAO {
         }
         return productList;
     }
+
+    @Override
+    public Product getProductByName(String productName) {
+        String sql = "SELECT * FROM product WHERE name=? limit 1";
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, productName);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return new Product(
+                        resultSet.getInt("product_id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("code"),
+                        resultSet.getInt("quantity"),
+                        resultSet.getInt("price")
+                );
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

@@ -19,18 +19,22 @@ public class Purchase {
     private Date purchaseDate;
     private int quantity;
     private Unit unit;
-    private int price;
+    private double price;
     private String purchaseNumber;
-    private int amountPaid;
-    private int amountRemaining;
-    private int totalAmount;
+    private double amountPaid;
+    private double amountRemaining;
+    private double totalAmount;
+    private boolean taxable;
     private PaymentType paymentType;
     private Customer customer;
     private Product product;
     
+    
     public Purchase(){}
 
-    public Purchase(int purchaseId, Date purchaseDate, int quantity, Unit unit, int price, String purchaseNumber, int amountPaid, int amountRemaining, int totalAmount, PaymentType paymentType, Customer customer, Product product) {
+    public Purchase(int purchaseId, Date purchaseDate, int quantity, Unit unit, 
+            double price, String purchaseNumber, double amountPaid, double amountRemaining, 
+            double totalAmount,boolean taxable, PaymentType paymentType, Customer customer, Product product) {
         this.purchaseId = purchaseId;
         this.purchaseDate = purchaseDate;
         this.quantity = quantity;
@@ -40,6 +44,7 @@ public class Purchase {
         this.amountPaid = amountPaid;
         this.amountRemaining = amountRemaining;
         this.totalAmount = totalAmount;
+        this.taxable = taxable;
         this.paymentType = paymentType;
         this.customer = customer;
         this.product = product;
@@ -77,11 +82,11 @@ public class Purchase {
         this.unit = unit;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -93,29 +98,38 @@ public class Purchase {
         this.purchaseNumber = purchaseNumber;
     }
 
-    public int getAmountPaid() {
+    public double getAmountPaid() {
         return amountPaid;
     }
 
-    public void setAmountPaid(int amountPaid) {
+    public void setAmountPaid(double amountPaid) {
         this.amountPaid = amountPaid;
     }
 
-    public int getAmountRemaining() {
+    public double getAmountRemaining() {
         return amountRemaining;
     }
 
-    public void setAmountRemaining(int amountRemaining) {
+    public void setAmountRemaining(double amountRemaining) {
         this.amountRemaining = amountRemaining;
     }
 
-    public int getTotalAmount() {
+    public double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(int totalAmount) {
+    public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
     }
+
+    public boolean isTaxable() {
+        return taxable;
+    }
+
+    public void setTaxable(boolean taxable) {
+        this.taxable = taxable;
+    }
+    
 
     public PaymentType getPaymentType() {
         return paymentType;

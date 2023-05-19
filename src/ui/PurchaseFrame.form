@@ -41,15 +41,27 @@
                       <Component id="headerLbl" min="-2" pref="382" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="purchaseDateLbl" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="purchaseDateField" min="-2" pref="252" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="passwordLbl" min="-2" pref="86" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="827" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
@@ -63,58 +75,54 @@
                                                   </Group>
                                                   <Group type="102" alignment="1" attributes="0">
                                                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                                      <Component id="priceField" min="-2" pref="259" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="totalField" min="-2" pref="237" max="-2" attributes="0"/>
+                                                          <Component id="priceField" min="-2" pref="259" max="-2" attributes="0"/>
+                                                      </Group>
                                                   </Group>
                                               </Group>
                                           </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="remainingLbl" min="-2" pref="100" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="remainingAmountField" max="32767" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
+                                              <Component id="customerCombo" min="-2" pref="252" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="emailLbl" min="-2" pref="98" max="-2" attributes="0"/>
+                                                  <Component id="addressLbl1" min="-2" pref="100" max="-2" attributes="0"/>
+                                                  <Component id="phoneLbl" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
+                                                  <Component id="pNumberLbl" min="-2" pref="103" max="-2" attributes="0"/>
+                                                  <Component id="remainingLbl" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="addressLbl2" min="-2" pref="91" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                                      <Component id="vatCheck" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
                                       <Component id="addressLbl4" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
-                                      <Component id="customerCombo" min="-2" pref="252" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="emailLbl" min="-2" pref="98" max="-2" attributes="0"/>
-                                          <Component id="addressLbl1" min="-2" pref="100" max="-2" attributes="0"/>
-                                          <Component id="phoneLbl" alignment="0" min="-2" pref="88" max="-2" attributes="0"/>
-                                          <Component id="pNumberLbl" min="-2" pref="103" max="-2" attributes="0"/>
-                                      </Group>
+                                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="unitCombo" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="paidAmountField" alignment="0" min="-2" pref="287" max="-2" attributes="0"/>
-                                  </Group>
                                   <Component id="paymentTypeCombo" min="-2" pref="287" max="-2" attributes="0"/>
-                                  <Component id="numberValueLbl" alignment="1" min="-2" pref="287" max="-2" attributes="0"/>
-                                  <Component id="productCombo" alignment="1" min="-2" pref="287" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="unitCombo" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="paidAmountField" alignment="0" min="-2" pref="287" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="productCombo" alignment="1" min="-2" pref="287" max="-2" attributes="0"/>
+                                      <Component id="purchaseNumberField" min="-2" pref="276" max="-2" attributes="0"/>
+                                      <Component id="remainingAmountField" min="-2" pref="287" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="addressLbl2" min="-2" pref="91" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="vatCheck" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="totalLbl" min="-2" pref="103" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="770" max="-2" attributes="0"/>
                           </Group>
-                      </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="purchaseDateLbl" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="purchaseDateField" min="-2" pref="252" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="passwordLbl" min="-2" pref="86" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -132,14 +140,14 @@
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="purchaseDateLbl" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="numberValueLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="purchaseDateLbl" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="pNumberLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="purchaseNumberField" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <Component id="purchaseDateField" min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="29" max="32767" attributes="0"/>
+              <EmptySpace pref="35" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="customerCombo" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                   <Component id="passwordLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
@@ -170,19 +178,44 @@
                   <Component id="addressLbl1" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="paidAmountField" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="remainingAmountField" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="addressLbl4" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="paymentTypeCombo" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="remainingLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="totalLbl" min="-2" pref="40" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="addressLbl2" min="-2" pref="40" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="remainingLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="remainingAmountField" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                              <Component id="totalField" min="-2" pref="38" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="paymentTypeCombo" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="addressLbl4" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="8" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="vatCheck" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="addressLbl2" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="vatCheck" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="addBtn" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="editBtn" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -190,7 +223,7 @@
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="280" max="-2" attributes="0"/>
-              <EmptySpace pref="102" max="32767" attributes="0"/>
+              <EmptySpace pref="59" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -306,6 +339,9 @@
           <Font name="Times New Roman" size="18" style="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="priceFieldKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="backBtn">
       <Properties>
@@ -323,18 +359,13 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Customer"/>
+        <Property name="text" type="java.lang.String" value="Vendor"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="customerCombo">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Ali"/>
-            <StringItem index="1" value="Hyder"/>
-            <StringItem index="2" value="Azeem"/>
-            <StringItem index="3" value="Sanaullah"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
       <Events>
@@ -363,11 +394,7 @@
     <Component class="javax.swing.JComboBox" name="productCombo">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Product1"/>
-            <StringItem index="1" value="Product 2"/>
-            <StringItem index="2" value="Product 2"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
       <Events>
@@ -391,6 +418,9 @@
           <Font name="Times New Roman" size="18" style="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="paidAmountFieldKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="addressLbl2">
       <Properties>
@@ -398,13 +428,6 @@
           <Font name="Times New Roman" size="18" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="VAT"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="remainingAmountField">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Times New Roman" size="18" style="0"/>
-        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="remainingLbl">
@@ -419,9 +442,9 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="3">
-            <StringItem index="0" value="Cash"/>
-            <StringItem index="1" value="Card"/>
-            <StringItem index="2" value="Check"/>
+            <StringItem index="0" value="CASH"/>
+            <StringItem index="1" value="CHEQUE"/>
+            <StringItem index="2" value="ONLINE"/>
           </StringArray>
         </Property>
       </Properties>
@@ -447,7 +470,7 @@
     </Component>
     <Component class="javax.swing.JSpinner" name="quantityField">
     </Component>
-    <Component class="javax.swing.JLabel" name="numberValueLbl">
+    <Component class="javax.swing.JLabel" name="purchaseNumberField">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Times New Roman" size="18" style="1"/>
@@ -474,6 +497,30 @@
           <Font name="Times New Roman" size="18" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Purchase #"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="totalLbl">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Total Price"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="totalField">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="0.0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="remainingAmountField">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Times New Roman" size="18" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="0.0"/>
       </Properties>
     </Component>
   </SubComponents>

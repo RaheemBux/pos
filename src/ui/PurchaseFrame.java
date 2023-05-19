@@ -5,20 +5,23 @@
  */
 package ui;
 
+import static contants.CustomerType.CUSTOMER;
 import contants.PaymentType;
 import contants.Unit;
+import dao.CustomerDAO;
+import dao.ProductDAO;
 import dao.PurchaseDAO;
-import dao.UserDAO;
+import daoimpl.CustomerDAOImpl;
+import daoimpl.ProductDAOImpl;
 import daoimpl.PurchaseDAOImpl;
-import daoimpl.UserDAOImpl;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Customer;
+import model.Product;
 import model.Purchase;
-import model.User;
 
 /**
  *
@@ -30,21 +33,24 @@ public class PurchaseFrame extends javax.swing.JFrame {
      * Creates new form RegisterFrame
      */
     Object columns[] = {"Id", "Customer", "P-Date", "P-Number", "Product",
-        "Quantity", "Price", "Total-Amount", "Paid", "Remaning", "Payment Type"};
+        "Quantity", "Price", "Total-Amount", "Paid", "Remaning", "Tax", "Payment Type"};
 
     DefaultTableModel defaultTableModel = new DefaultTableModel(columns, 0);
 
     private static Integer purchaseId = 0;
 
-    UserDAO userDAO = new UserDAOImpl();
     PurchaseDAO purchaseDAO = new PurchaseDAOImpl();
+    CustomerDAO customerDAO = new CustomerDAOImpl();
+    ProductDAO productDAO = new ProductDAOImpl();
 
     public PurchaseFrame() {
         initComponents();
-        numberValueLbl.setText(getPurchaseCode());
+        purchaseNumberField.setText(getPurchaseCode());
         editBtn.setEnabled(false);
         deleteBtn.setEnabled(false);
         fillTable();
+        fillCustomerCombo();
+        fillProductCombo();
         setSize(930, 820);
         setLocation(350, 50);
 
@@ -53,28 +59,66 @@ public class PurchaseFrame extends javax.swing.JFrame {
     public boolean isAnyFieldsEmpty() {
         if (priceField.getText().equals("")) {
             return true;
-
         }
         return false;
     }
 
     public void setFields(Purchase purchase) {
+        purchaseDateField.setDate(purchase.getPurchaseDate());
+        purchaseNumberField.setText(purchase.getPurchaseNumber());
+        customerCombo.setSelectedItem(purchase.getCustomer().getName());
+        productCombo.setSelectedItem(purchase.getProduct().getName());;
+        quantityField.setValue(purchase.getQuantity());
+        unitCombo.setSelectedItem(purchase.getUnit());
+        priceField.setText(String.valueOf(purchase.getPrice()));
+        paidAmountField.setText(String.valueOf(purchase.getAmountPaid()));
+        remainingAmountField.setText(String.valueOf(purchase.getAmountRemaining()));
+        totalField.setText(String.valueOf(purchase.getTotalAmount()));
+        paymentTypeCombo.setSelectedItem(purchase.getPaymentType());
+        if (purchase.isTaxable()) {
+            vatCheck.setSelected(true);
+        } else {
+            vatCheck.setSelected(false);
+        }
 
     }
 
+    public void fillCustomerCombo() {
+        List<Customer> customers = customerDAO.getAllCustomers();
+        for (Customer customer : customers) {
+            if (!CUSTOMER.equals(customer.getCustomerType())) {
+                customerCombo.addItem(customer.getName());
+            }
+        }
+    }
+
+    public void fillProductCombo() {
+        List<Product> products = productDAO.getAllProducts();
+        for (Product product : products) {
+            productCombo.addItem(product.getName());
+        }
+    }
+
     public Purchase getPurchase() {
-        Date purchaseDate = (Date) purchaseDateField.getDate();
-        String purchaseNumber = numberValueLbl.getText();
-        String customer = customerCombo.getSelectedItem().toString();
-        String product = productCombo.getSelectedItem().toString();
+        java.sql.Date purchaseDate = new java.sql.Date(purchaseDateField.getDate().getTime());
+        String purchaseNumber = purchaseNumberField.getText();
+        String customerName = customerCombo.getSelectedItem().toString();
+        Customer customer = customerDAO.getCustomerByName(customerName);
+        String productName = productCombo.getSelectedItem().toString();
+        Product product = productDAO.getProductByName(productName);
         Integer quantity = Integer.parseInt(quantityField.getValue().toString());
         Unit unit = Unit.valueOf(unitCombo.getSelectedItem().toString());
-        Integer price = Integer.parseInt(priceField.getText());
-        Integer paid = Integer.parseInt(paidAmountField.getText());
-        Integer total = quantity * price;
-        Integer remaining = Integer.parseInt(remainingAmountField.getText());
+        double price = Double.parseDouble(priceField.getText());
+        double paid = Double.parseDouble(paidAmountField.getText());
+        double total = quantity * price;
+        double remaining = Double.parseDouble(remainingAmountField.getText());
         PaymentType paymentType = PaymentType.valueOf(paymentTypeCombo.getSelectedItem().toString());
-        Purchase purchase = new Purchase(0, purchaseDate,quantity , unit, price, purchaseNumber, paid, remaining, total, paymentType, null, null);
+        boolean vat = false;
+        if (vatCheck.isSelected()) {
+            vat = true;
+        }
+        Purchase purchase = new Purchase(0, purchaseDate, quantity, unit, price,
+                purchaseNumber, paid, remaining, total, vat, paymentType, customer, product);
         return purchase;
     }
 
@@ -95,10 +139,18 @@ public class PurchaseFrame extends javax.swing.JFrame {
 
     public void fillTable() {
         defaultTableModel = new DefaultTableModel(columns, 0);
-        List<User> users = userDAO.getAllUsers();
+        List<Purchase> purchases = purchaseDAO.getAllPurchases();
+        double taxAmount = 0;
+        for (Purchase p : purchases) {
+            if (p.isTaxable()) {
+                taxAmount = p.getTotalAmount() * 0.05;
+                p.setTotalAmount(p.getTotalAmount() + taxAmount);
 
-        for (User u : users) {
-            Object row[] = {u.getUserId(), u.getName(), u.getEmail(), u.getPassword(), u.getContact(), u.getAddress()};
+            }
+            Object row[] = {p.getPurchaseId(), p.getCustomer().getName(),
+                p.getPurchaseDate(), p.getPurchaseNumber(), p.getProduct().getName(),
+                p.getQuantity(), p.getPrice(), p.getTotalAmount(), p.getAmountPaid(),
+                p.getAmountRemaining(),taxAmount, p.getPaymentType()};
             defaultTableModel.addRow(row);
             purchaseTable.setModel(defaultTableModel);
         }
@@ -136,16 +188,18 @@ public class PurchaseFrame extends javax.swing.JFrame {
         addressLbl1 = new javax.swing.JLabel();
         paidAmountField = new javax.swing.JTextField();
         addressLbl2 = new javax.swing.JLabel();
-        remainingAmountField = new javax.swing.JTextField();
         remainingLbl = new javax.swing.JLabel();
         paymentTypeCombo = new javax.swing.JComboBox<>();
         addressLbl4 = new javax.swing.JLabel();
         vatCheck = new javax.swing.JCheckBox();
         quantityField = new javax.swing.JSpinner();
-        numberValueLbl = new javax.swing.JLabel();
+        purchaseNumberField = new javax.swing.JLabel();
         purchaseDateField = new com.toedter.calendar.JDateChooser();
         purchaseDateLbl = new javax.swing.JLabel();
         pNumberLbl = new javax.swing.JLabel();
+        totalLbl = new javax.swing.JLabel();
+        totalField = new javax.swing.JLabel();
+        remainingAmountField = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -209,6 +263,11 @@ public class PurchaseFrame extends javax.swing.JFrame {
         });
 
         priceField.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        priceField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                priceFieldKeyReleased(evt);
+            }
+        });
 
         backBtn.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         backBtn.setText("Back");
@@ -219,9 +278,8 @@ public class PurchaseFrame extends javax.swing.JFrame {
         });
 
         passwordLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        passwordLbl.setText("Customer");
+        passwordLbl.setText("Vendor");
 
-        customerCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ali", "Hyder", "Azeem", "Sanaullah" }));
         customerCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 customerComboActionPerformed(evt);
@@ -235,7 +293,6 @@ public class PurchaseFrame extends javax.swing.JFrame {
             }
         });
 
-        productCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Product1", "Product 2", "Product 2" }));
         productCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 productComboActionPerformed(evt);
@@ -246,16 +303,19 @@ public class PurchaseFrame extends javax.swing.JFrame {
         addressLbl1.setText("Paid");
 
         paidAmountField.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        paidAmountField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                paidAmountFieldKeyReleased(evt);
+            }
+        });
 
         addressLbl2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         addressLbl2.setText("VAT");
 
-        remainingAmountField.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-
         remainingLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         remainingLbl.setText("Remainig");
 
-        paymentTypeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "Card", "Check" }));
+        paymentTypeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CASH", "CHEQUE", "ONLINE" }));
         paymentTypeCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 paymentTypeComboActionPerformed(evt);
@@ -271,8 +331,8 @@ public class PurchaseFrame extends javax.swing.JFrame {
             }
         });
 
-        numberValueLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        numberValueLbl.setText("Purchase #");
+        purchaseNumberField.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        purchaseNumberField.setText("Purchase #");
 
         purchaseDateField.setDateFormatString("dd-MM-yyyy");
 
@@ -281,6 +341,15 @@ public class PurchaseFrame extends javax.swing.JFrame {
 
         pNumberLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         pNumberLbl.setText("Purchase #");
+
+        totalLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        totalLbl.setText("Total Price");
+
+        totalField.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        totalField.setText("0.0");
+
+        remainingAmountField.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        remainingAmountField.setText("0.0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -302,14 +371,23 @@ public class PurchaseFrame extends javax.swing.JFrame {
                         .addGap(184, 184, 184)
                         .addComponent(headerLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(purchaseDateLbl)
+                                .addGap(18, 18, 18)
+                                .addComponent(purchaseDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(passwordLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 827, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,42 +399,39 @@ public class PurchaseFrame extends javax.swing.JFrame {
                                                         .addComponent(quantityField, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                                         .addGap(18, 18, 18)
-                                                        .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(totalField, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                            .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(remainingLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(remainingAmountField)))
-                                        .addGap(14, 14, 14)
-                                        .addComponent(addressLbl4))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(125, 125, 125)
-                                        .addComponent(customerCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(44, 44, 44)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(emailLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(addressLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(phoneLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(pNumberLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(37, 37, 37)
+                                                .addGap(125, 125, 125)
+                                                .addComponent(customerCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(57, 57, 57)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(emailLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(addressLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(phoneLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(pNumberLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(remainingLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(37, 37, 37))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(addressLbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(60, 60, 60)
+                                        .addComponent(vatCheck)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(addressLbl4)
+                                        .addGap(40, 40, 40)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(unitCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(paidAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(paymentTypeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(numberValueLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(productCombo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(addressLbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(vatCheck))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(purchaseDateLbl)
-                                .addGap(18, 18, 18)
-                                .addComponent(purchaseDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(passwordLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(unitCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(paidAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(productCombo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(purchaseNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(remainingAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(totalLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(770, 770, 770)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -368,12 +443,12 @@ public class PurchaseFrame extends javax.swing.JFrame {
                     .addComponent(headerLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(purchaseDateLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(numberValueLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(purchaseDateLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(pNumberLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(pNumberLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(purchaseNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(purchaseDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(customerCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passwordLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -397,24 +472,40 @@ public class PurchaseFrame extends javax.swing.JFrame {
                     .addComponent(addressLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addressLbl1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(paidAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(remainingAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addressLbl4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paymentTypeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remainingLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(addressLbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(vatCheck))
-                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(totalLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(addressLbl2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(remainingLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(remainingAmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(totalField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(paymentTypeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(addressLbl4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(vatCheck)))))
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         pack();
@@ -500,6 +591,23 @@ public class PurchaseFrame extends javax.swing.JFrame {
     private void vatCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vatCheckActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_vatCheckActionPerformed
+
+    private void paidAmountFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_paidAmountFieldKeyReleased
+        Integer quantity = Integer.parseInt(quantityField.getValue().toString());
+        Integer price = Integer.parseInt(priceField.getText());
+        Integer paid = Integer.parseInt(paidAmountField.getText());
+        Integer total = quantity * price;
+        Integer remaining = total - paid;
+        remainingAmountField.setText(remaining.toString());
+    }//GEN-LAST:event_paidAmountFieldKeyReleased
+
+    private void priceFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_priceFieldKeyReleased
+        Integer quantity = Integer.parseInt(quantityField.getValue().toString());
+        Integer price = Integer.parseInt(priceField.getText());
+        Integer total = quantity * price;
+        totalField.setText(total.toString());
+
+    }//GEN-LAST:event_priceFieldKeyReleased
 
     /**
      * @param args the command line arguments
@@ -677,7 +785,6 @@ public class PurchaseFrame extends javax.swing.JFrame {
     private javax.swing.JLabel headerLbl;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel nameLbl;
-    private javax.swing.JLabel numberValueLbl;
     private javax.swing.JLabel pNumberLbl;
     private javax.swing.JTextField paidAmountField;
     private javax.swing.JLabel passwordLbl;
@@ -687,10 +794,13 @@ public class PurchaseFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> productCombo;
     private com.toedter.calendar.JDateChooser purchaseDateField;
     private javax.swing.JLabel purchaseDateLbl;
+    private javax.swing.JLabel purchaseNumberField;
     private javax.swing.JTable purchaseTable;
     private javax.swing.JSpinner quantityField;
-    private javax.swing.JTextField remainingAmountField;
+    private javax.swing.JLabel remainingAmountField;
     private javax.swing.JLabel remainingLbl;
+    private javax.swing.JLabel totalField;
+    private javax.swing.JLabel totalLbl;
     private javax.swing.JComboBox<String> unitCombo;
     private javax.swing.JCheckBox vatCheck;
     // End of variables declaration//GEN-END:variables

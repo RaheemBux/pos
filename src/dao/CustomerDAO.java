@@ -17,6 +17,7 @@ public interface CustomerDAO {
     boolean updateCustomer(Customer customer);
     boolean deleteCustomer(int customerId);
     Customer getCustomerById(int customerId);
+    Customer getCustomerByName(String customerName);
     List<Customer> getAllCustomers();
 }
 

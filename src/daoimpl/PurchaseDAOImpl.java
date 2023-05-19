@@ -31,20 +31,21 @@ public class PurchaseDAOImpl implements PurchaseDAO {
     @Override
     public boolean addPurchase(Purchase purchase) {
         try {
-            String query = "INSERT INTO purchase(purchase_date, quantity, unit, price, purchase_number, amount_paid, amount_remaining, total_amount, payment_type, customer_id, product_id) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO purchase(purchase_date, quantity, unit, price, purchase_number, amount_paid, amount_remaining, total_amount, payment_type, customer_id, product_id,is_taxable) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setDate(1, new java.sql.Date(purchase.getPurchaseDate().getTime()));
             ps.setInt(2, purchase.getQuantity());
             ps.setString(3, purchase.getUnit().toString());
-            ps.setInt(4, purchase.getPrice());
+            ps.setDouble(4, purchase.getPrice());
             ps.setString(5, purchase.getPurchaseNumber());
-            ps.setInt(6, purchase.getAmountPaid());
-            ps.setInt(7, purchase.getAmountRemaining());
-            ps.setInt(8, purchase.getTotalAmount());
+            ps.setDouble(6, purchase.getAmountPaid());
+            ps.setDouble(7, purchase.getAmountRemaining());
+            ps.setDouble(8, purchase.getTotalAmount());
             ps.setString(9, purchase.getPaymentType().toString());
             ps.setInt(10, purchase.getCustomer().getCustomerId());
             ps.setInt(11, purchase.getProduct().getProductId());
+            ps.setBoolean(12, purchase.isTaxable());
             int count = ps.executeUpdate();
             if (count > 0) {
                 return true;
@@ -58,21 +59,22 @@ public class PurchaseDAOImpl implements PurchaseDAO {
     @Override
     public boolean updatePurchase(Purchase purchase) {
         try {
-            String query = "UPDATE purchase SET purchase_date=?, quantity=?, unit=?, price=?, purchase_number=?, amount_paid=?, amount_remaining=?, total_amount=?, payment_type=?, customer_id=?, product_id=? "
+            String query = "UPDATE purchase SET purchase_date=?, quantity=?, unit=?, price=?, purchase_number=?, amount_paid=?, amount_remaining=?, total_amount=?, payment_type=?, is_taxable,customer_id=?, product_id=? "
                     + "WHERE purchase_id=?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setDate(1, new java.sql.Date(purchase.getPurchaseDate().getTime()));
             ps.setInt(2, purchase.getQuantity());
             ps.setString(3, purchase.getUnit().toString());
-            ps.setInt(4, purchase.getPrice());
+            ps.setDouble(4, purchase.getPrice());
             ps.setString(5, purchase.getPurchaseNumber());
-            ps.setInt(6, purchase.getAmountPaid());
-            ps.setInt(7, purchase.getAmountRemaining());
-            ps.setInt(8, purchase.getTotalAmount());
+            ps.setDouble(6, purchase.getAmountPaid());
+            ps.setDouble(7, purchase.getAmountRemaining());
+            ps.setDouble(8, purchase.getTotalAmount());
             ps.setString(9, purchase.getPaymentType().toString());
             ps.setInt(10, purchase.getCustomer().getCustomerId());
             ps.setInt(11, purchase.getProduct().getProductId());
-            ps.setInt(12, purchase.getPurchaseId());
+            ps.setBoolean(12, purchase.isTaxable());
+            ps.setInt(13, purchase.getPurchaseId());
             int count = ps.executeUpdate();
             if (count > 0) {
                 return true;
@@ -118,6 +120,7 @@ public class PurchaseDAOImpl implements PurchaseDAO {
                 purchase.setAmountPaid(resultSet.getInt("amount_paid"));
                 purchase.setAmountRemaining(resultSet.getInt("amount_remaining"));
                 purchase.setTotalAmount(resultSet.getInt("total_amount"));
+                purchase.setTaxable(resultSet.getBoolean("is_taxable"));
                 purchase.setPaymentType(PaymentType.valueOf(resultSet.getString("payment_type")));
                 Customer customer = customerDAO.getCustomerById(resultSet.getInt("customer_id"));
                 purchase.setCustomer(customer);
@@ -150,6 +153,7 @@ public class PurchaseDAOImpl implements PurchaseDAO {
                 purchase.setAmountPaid(resultSet.getInt("amount_paid"));
                 purchase.setAmountRemaining(resultSet.getInt("amount_remaining"));
                 purchase.setTotalAmount(resultSet.getInt("total_amount"));
+                purchase.setTaxable(resultSet.getBoolean("is_taxable"));
                 purchase.setPaymentType(PaymentType.valueOf(resultSet.getString("payment_type")));
                 Customer customer = customerDAO.getCustomerById(resultSet.getInt("customer_id"));
                 purchase.setCustomer(customer);

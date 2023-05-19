@@ -141,4 +141,32 @@ public class CustomerDAOImpl implements CustomerDAO {
 
         return customers;
     }
+
+    @Override
+    public Customer getCustomerByName(String customerName) {
+        Customer customer = null;
+
+        try (PreparedStatement statement = connection.prepareStatement(
+                "SELECT * FROM customers WHERE name=? limit 1"
+        )) {
+            statement.setString(1, customerName);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                customer = new Customer(
+                        resultSet.getInt("customer_id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("email"),
+                        resultSet.getString("contact"),
+                        resultSet.getString("address"),
+                        CustomerType.valueOf(resultSet.getString("customer_type"))
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return customer;
+    }
 }
