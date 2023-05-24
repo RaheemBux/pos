@@ -7,6 +7,7 @@ package ui;
 
 import dao.UserDAO;
 import daoimpl.UserDAOImpl;
+import java.sql.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -21,15 +22,13 @@ public class UserFrame extends javax.swing.JFrame {
     /**
      * Creates new form RegisterFrame
      */
-    Object columns[] = {"Id", "Name", "Email", "Password", "Phone", "Address"};
+    Object columns[] = {"Id", "Name", "Email", "Password", "Phone", "Address","Emirated ID","Expiry Date"};
 
     DefaultTableModel defaultTableModel = new DefaultTableModel(columns, 0);
 
     private static Integer userId = 0;
 
     UserDAO userDAO = new UserDAOImpl();
-
-    ;
 
     public UserFrame() {
         initComponents();
@@ -43,7 +42,8 @@ public class UserFrame extends javax.swing.JFrame {
 
     public boolean isAnyFieldsEmpty() {
         if (nameField.getText().equals("") || emailField.getText().equals("") || phoneField.getText().equals("")
-                || passwordField.getText().equals("") || addressField.getText().equals("") || addressField.getText().equals("")) {
+                || passwordField.getText().equals("") || addressField.getText().equals("") 
+                || addressField.getText().equals("") || emaritsIdFeild.getText().equals("") ) {
             return true;
 
         }
@@ -56,6 +56,8 @@ public class UserFrame extends javax.swing.JFrame {
         phoneField.setText(user.getContact());
         passwordField.setText(user.getPassword());
         addressField.setText(user.getAddress());
+        emaritsIdFeild.setText(user.getEmiratesId());
+        idExpiryDateField.setDate(user.getExpiryDate());
     }
 
     public User getUser() {
@@ -64,7 +66,9 @@ public class UserFrame extends javax.swing.JFrame {
         String contact = phoneField.getText();
         String address = addressField.getText();
         String password = passwordField.getText();
-        User user = new User(0, name, email, password, contact, address);
+        String emiratesId = emaritsIdFeild.getText();
+        java.sql.Date expirayDate = new java.sql.Date(idExpiryDateField.getDate().getTime());
+        User user = new User(0, name, email, password, contact, address,emiratesId,expirayDate);
         return user;
     }
 
@@ -74,6 +78,7 @@ public class UserFrame extends javax.swing.JFrame {
         passwordField.setText("");
         phoneField.setText("");
         addressField.setText("");
+        emaritsIdFeild.setText("");
     }
 
     public void fillTable() {
@@ -81,7 +86,8 @@ public class UserFrame extends javax.swing.JFrame {
         List<User> users = userDAO.getAllUsers();
 
         for (User u : users) {
-            Object row[] = {u.getUserId(), u.getName(), u.getEmail(), u.getPassword(), u.getContact(), u.getAddress()};
+            Object row[] = {u.getUserId(), u.getName(), u.getEmail(), u.getPassword(), 
+                u.getContact(), u.getAddress(),u.getEmiratesId(),u.getExpiryDate()};
             defaultTableModel.addRow(row);
             usersTable.setModel(defaultTableModel);
         }
@@ -117,6 +123,10 @@ public class UserFrame extends javax.swing.JFrame {
         backBtn = new javax.swing.JButton();
         passwordLbl = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
+        emiratesIdLbl = new javax.swing.JLabel();
+        emaritsIdFeild = new javax.swing.JTextField();
+        idExpiryDateField = new com.toedter.calendar.JDateChooser();
+        idExpirayDateLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -200,6 +210,16 @@ public class UserFrame extends javax.swing.JFrame {
 
         passwordField.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
+        emiratesIdLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        emiratesIdLbl.setText("Emirates ID");
+
+        emaritsIdFeild.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+
+        idExpiryDateField.setDateFormatString("dd-MM-yyyy");
+
+        idExpirayDateLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        idExpirayDateLbl.setText("Expiry Date");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -219,32 +239,43 @@ public class UserFrame extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
+                        .addGap(75, 75, 75)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 827, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 827, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(passwordLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(addressLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(nameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(6, 6, 6)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(66, 66, 66)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(33, 33, 33)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(3, 3, 3)
-                                                .addComponent(emailLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(phoneLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(22, 22, 22)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
-                .addContainerGap(117, Short.MAX_VALUE))
+                                        .addComponent(addressLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(emiratesIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(emaritsIdFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(emailLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(phoneLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(idExpirayDateLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(phoneField, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                            .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                            .addComponent(idExpiryDateField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -274,17 +305,24 @@ public class UserFrame extends javax.swing.JFrame {
                             .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(phoneLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(emaritsIdFeild, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(idExpirayDateLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(emiratesIdLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idExpiryDateField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addressLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addGap(66, 66, 66))
         );
 
         pack();
@@ -320,7 +358,7 @@ public class UserFrame extends javax.swing.JFrame {
         } else {
             User user = getUser();
             user.setUserId(userId);
-            boolean b = userDAO.addUser(user);
+            boolean b = userDAO.updateUser(user);
             if (b) {
                 JOptionPane.showMessageDialog(this, "User Updated Successfully");
                 fillTable();
@@ -426,7 +464,11 @@ public class UserFrame extends javax.swing.JFrame {
     private javax.swing.JButton editBtn;
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel emailLbl;
+    private javax.swing.JTextField emaritsIdFeild;
+    private javax.swing.JLabel emiratesIdLbl;
     private javax.swing.JLabel headerLbl;
+    private javax.swing.JLabel idExpirayDateLbl;
+    private com.toedter.calendar.JDateChooser idExpiryDateField;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nameLbl;

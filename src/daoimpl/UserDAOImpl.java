@@ -22,7 +22,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean addUser(User user) {
-        String sql = "INSERT INTO users (name, email, password, contact, address) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users (name, email, password, contact, address,emirates_id,expiry_date) VALUES (?, ?, ?, ?, ?,?,?)";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -31,6 +31,8 @@ public class UserDAOImpl implements UserDAO {
             stmt.setString(3, user.getPassword());
             stmt.setString(4, user.getContact());
             stmt.setString(5, user.getAddress());
+            stmt.setString(6, user.getEmiratesId());
+            stmt.setDate(7, user.getExpiryDate());
 
             int rowsAffected = stmt.executeUpdate();
             return (rowsAffected > 0);
@@ -58,6 +60,8 @@ public class UserDAOImpl implements UserDAO {
                 user.setPassword(rs.getString("password"));
                 user.setContact(rs.getString("contact"));
                 user.setAddress(rs.getString("address"));
+                user.setEmiratesId(rs.getString("emirates_id"));
+                user.setExpiryDate(rs.getDate("expiry_date"));
 
                 return user;
             }
@@ -85,6 +89,8 @@ public class UserDAOImpl implements UserDAO {
                 user.setPassword(rs.getString("password"));
                 user.setContact(rs.getString("contact"));
                 user.setAddress(rs.getString("address"));
+                user.setEmiratesId(rs.getString("emirates_id"));
+                user.setExpiryDate(rs.getDate("expiry_date"));
 
                 userList.add(user);
             }
@@ -97,7 +103,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean updateUser(User user) {
-        String sql = "UPDATE users SET name = ?, email = ?, password = ?, contact = ?, address = ? WHERE user_id = ?";
+        String sql = "UPDATE users SET name = ?, email = ?, password = ?, contact = ?, address = ?, emirates_id=?, expiry_date=?"
+                + " WHERE user_id = ?";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -106,7 +113,9 @@ public class UserDAOImpl implements UserDAO {
             stmt.setString(3, user.getPassword());
             stmt.setString(4, user.getContact());
             stmt.setString(5, user.getAddress());
-            stmt.setInt(6, user.getUserId());
+            stmt.setString(6, user.getEmiratesId());
+            stmt.setDate(7, user.getExpiryDate());
+            stmt.setInt(8, user.getUserId());
 
             int rowsAffected = stmt.executeUpdate();
             return (rowsAffected > 0);
@@ -152,6 +161,8 @@ public class UserDAOImpl implements UserDAO {
                 user.setPassword(rs.getString("password"));
                 user.setContact(rs.getString("contact"));
                 user.setAddress(rs.getString("address"));
+                user.setEmiratesId(rs.getString("emirates_id"));
+                user.setExpiryDate(rs.getDate("expiry_date"));
 
                 return user;
             }
