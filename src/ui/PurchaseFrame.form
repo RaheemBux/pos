@@ -25,10 +25,6 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-<<<<<<< HEAD
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-=======
                   <Group type="102" attributes="0">
                       <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
                       <Component id="backBtn" min="-2" max="-2" attributes="0"/>
@@ -83,7 +79,6 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
->>>>>>> 945b306509560d445307269943231fe8e83cd4ef
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="phoneLbl" min="-2" pref="88" max="-2" attributes="0"/>
@@ -162,28 +157,9 @@
                       <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                       <Component id="purchaseDateLbl" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
-<<<<<<< HEAD
-              </Group>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="customerCombo" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
-                  <Component id="passwordLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="phoneLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                  <Component id="productCombo" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-              </Group>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="emailLbl" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                          <Component id="unitCombo" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-=======
                   <Group type="102" attributes="0">
                       <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                       <Component id="purchaseDateField" min="-2" pref="40" max="-2" attributes="0"/>
->>>>>>> 945b306509560d445307269943231fe8e83cd4ef
                   </Group>
                   <Component id="pNumberLbl" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="purchaseNumberField" min="-2" pref="40" max="-2" attributes="0"/>
