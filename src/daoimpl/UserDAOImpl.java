@@ -22,7 +22,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean addUser(User user) {
-        String sql = "INSERT INTO users (name, email, password, contact, address,emirates_id,expiry_date) VALUES (?, ?, ?, ?, ?,?,?)";
+        String sql = "INSERT INTO users (name, email, password, contact, address,emirates_id,expiry_date,created_date,created_by) "
+                + "VALUES (?, ?, ?, ?, ?,?,?,now(),?)";
 
         try {
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -33,6 +34,7 @@ public class UserDAOImpl implements UserDAO {
             stmt.setString(5, user.getAddress());
             stmt.setString(6, user.getEmiratesId());
             stmt.setDate(7, user.getExpiryDate());
+            stmt.setString(8, user.getCreatedBy());
 
             int rowsAffected = stmt.executeUpdate();
             return (rowsAffected > 0);
@@ -103,7 +105,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean updateUser(User user) {
-        String sql = "UPDATE users SET name = ?, email = ?, password = ?, contact = ?, address = ?, emirates_id=?, expiry_date=?"
+        String sql = "UPDATE users SET name = ?, email = ?, password = ?, contact = ?, address = ?, emirates_id=?, expiry_date=?,last_modified_date=now(),last_modified_by=?"
                 + " WHERE user_id = ?";
 
         try {
@@ -115,7 +117,8 @@ public class UserDAOImpl implements UserDAO {
             stmt.setString(5, user.getAddress());
             stmt.setString(6, user.getEmiratesId());
             stmt.setDate(7, user.getExpiryDate());
-            stmt.setInt(8, user.getUserId());
+            stmt.setString(8, user.getCreatedBy());
+            stmt.setInt(9, user.getUserId());
 
             int rowsAffected = stmt.executeUpdate();
             return (rowsAffected > 0);

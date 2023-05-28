@@ -29,8 +29,8 @@ public class CustomerDAOImpl implements CustomerDAO {
         boolean success = false;
 
         try (PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO customers (name, email, contact1, address, customer_type,emirates_id,expiry_date,contact2,contact3) "
-                + "VALUES (?, ?, ?, ?, ?,?,?,?,?)"
+                "INSERT INTO customers (name, email, contact1, address, customer_type,emirates_id,expiry_date,contact2,contact3,"
+                        + "created_date,created_by) VALUES (?, ?, ?, ?, ?,?,?,?,?,now(),?)"
         )) {
             statement.setString(1, customer.getName());
             statement.setString(2, customer.getEmail());
@@ -41,6 +41,7 @@ public class CustomerDAOImpl implements CustomerDAO {
             statement.setDate(7, customer.getExpiryDate());
             statement.setString(8, customer.getContact2());
             statement.setString(9, customer.getContact3());
+            statement.setString(10, customer.getCreatedBy());
 
             success = statement.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -56,7 +57,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
         try (PreparedStatement statement = connection.prepareStatement(
                 "UPDATE customers SET name=?, email=?, contact1=?, address=?, customer_type=?, emirates_id=?, expiry_date=? "
-                + ",contact2=?,contact3=? WHERE customer_id=?"
+                + ",contact2=?,contact3=?,last_modified_date=now(),last_modified_by=? WHERE customer_id=?"
         )) {
             statement.setString(1, customer.getName());
             statement.setString(2, customer.getEmail());
@@ -67,7 +68,8 @@ public class CustomerDAOImpl implements CustomerDAO {
             statement.setDate(7, customer.getExpiryDate());
             statement.setString(8, customer.getContact2());
             statement.setString(9, customer.getContact3());
-            statement.setInt(10, customer.getCustomerId());
+            statement.setString(10, customer.getLastModifiedBy());
+            statement.setInt(11, customer.getCustomerId());
 
             success = statement.executeUpdate() > 0;
         } catch (SQLException e) {

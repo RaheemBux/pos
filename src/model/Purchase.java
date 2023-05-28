@@ -13,7 +13,7 @@ import java.sql.Date;
  *
  * @author HP
  */
-public class Purchase {
+public class Purchase extends AuditableEntity{
 
     private int purchaseId;
     private Date purchaseDate;

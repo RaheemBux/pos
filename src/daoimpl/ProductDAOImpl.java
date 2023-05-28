@@ -22,13 +22,15 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public boolean addProduct(Product product) {
-        String sql = "INSERT INTO product (name, code, quantity, price) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO product (name, code, quantity, price,created_date,created_by) "
+                + "VALUES (?, ?, ?, ?,now(),?)";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, product.getName());
             statement.setString(2, product.getCode());
             statement.setInt(3, product.getQuantity());
             statement.setInt(4, product.getPrice());
+            statement.setString(5, product.getCreatedBy());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -38,14 +40,15 @@ public class ProductDAOImpl implements ProductDAO {
 
     @Override
     public boolean updateProduct(Product product) {
-        String sql = "UPDATE product SET name=?, code=?, quantity=?, price=? WHERE product_id=?";
+        String sql = "UPDATE product SET name=?, code=?, quantity=?, price=?,last_modified_date=now(),last_modified_by=? WHERE product_id=?";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, product.getName());
             statement.setString(2, product.getCode());
             statement.setInt(3, product.getQuantity());
             statement.setInt(4, product.getPrice());
-            statement.setInt(5, product.getProductId());
+            statement.setString(5, product.getLastModifiedBy());
+            statement.setInt(6, product.getProductId());
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();

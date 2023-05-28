@@ -9,7 +9,7 @@ package model;
  *
  * @author HP
  */
-public class Product {
+public class Product extends AuditableEntity{
 
     private int productId;
     private String name;

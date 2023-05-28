@@ -12,7 +12,7 @@ import java.sql.Date;
  *
  * @author HP
  */
-public class Customer {
+public class Customer extends AuditableEntity{
     private int customerId;
     private String name;
     private String email;

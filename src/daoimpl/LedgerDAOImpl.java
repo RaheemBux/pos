@@ -28,7 +28,8 @@ public class LedgerDAOImpl implements LedgerDAO {
 
     @Override
     public boolean addLedger(Ledger ledger) {
-        String sql = "INSERT INTO ledger (order_number, amount_paid, amount_remaining, total_amount, customer_id) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO ledger (order_number, amount_paid, amount_remaining, total_amount, customer_id,created_date,created_by) "
+                + "VALUES (?, ?, ?, ?, ?,now(),?)";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, ledger.getOrderNumber());
@@ -36,6 +37,7 @@ public class LedgerDAOImpl implements LedgerDAO {
             statement.setDouble(3, ledger.getAmountRemaining());
             statement.setDouble(4, ledger.getTotalAmount());
             statement.setInt(5, ledger.getCustomer().getCustomerId());
+            statement.setString(6,ledger.getCreatedBy());
 
             int rowsInserted = statement.executeUpdate();
             return rowsInserted > 0;
@@ -73,7 +75,8 @@ public class LedgerDAOImpl implements LedgerDAO {
 
     @Override
     public boolean updateLedger(Ledger ledger) {
-        String sql = "UPDATE ledger SET order_number = ?, amount_paid = ?, amount_remaining = ?, total_amount = ?, customer_id = ? WHERE ledger_id = ?";
+        String sql = "UPDATE ledger SET order_number = ?, amount_paid = ?, amount_remaining = ?, total_amount = ?,"
+                + " customer_id = ?, last_modified_date=now(),last_modified_by=? WHERE ledger_id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, ledger.getOrderNumber());
@@ -81,7 +84,8 @@ public class LedgerDAOImpl implements LedgerDAO {
             statement.setDouble(3, ledger.getAmountRemaining());
             statement.setDouble(4, ledger.getTotalAmount());
             statement.setInt(5, ledger.getCustomer().getCustomerId());
-            statement.setInt(6, ledger.getLedgerId());
+            statement.setString(6, ledger.getLastModifiedBy());
+            statement.setInt(7, ledger.getLedgerId());
 
             int rowsUpdated = statement.executeUpdate();
             return rowsUpdated > 0;

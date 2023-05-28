@@ -34,8 +34,9 @@ public class SalesDAOImpl implements SalesDAO {
     @Override
     public boolean addSales(Sales sales) {
         try {
-            String query = "INSERT INTO sales (sales_date, quantity, unit, price, sales_number, amount_paid, amount_remaining, total_amount, payment_type, customer_id, product_id) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO sales (sales_date, quantity, unit, price, sales_number, amount_paid, amount_remaining, "
+                    + "total_amount, payment_type, customer_id, product_id,created_date,created_by) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,now(),?)";
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setDate(1, sales.getSalesDate());
             statement.setInt(2, sales.getQuantity());
@@ -48,6 +49,7 @@ public class SalesDAOImpl implements SalesDAO {
             statement.setString(9, sales.getPaymentType().toString());
             statement.setInt(10, sales.getCustomer().getCustomerId());
             statement.setInt(11, sales.getProduct().getProductId());
+            statement.setString(12, sales.getCreatedBy() );
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
                 return true;
@@ -61,7 +63,8 @@ public class SalesDAOImpl implements SalesDAO {
     @Override
     public boolean updateSales(Sales sales) {
         try {
-            String query = "UPDATE sales SET sales_date=?, quantity=?, unit=?, price=?, sales_number=?, amount_paid=?, amount_remaining=?, total_amount=?, payment_type=?, customer_id=?, product_id=? WHERE sales_id=?";
+            String query = "UPDATE sales SET sales_date=?, quantity=?, unit=?, price=?, sales_number=?, amount_paid=?, "
+                    + "amount_remaining=?, total_amount=?, payment_type=?, customer_id=?, product_id=?,last_modified_date=now(),last_modified_by=? WHERE sales_id=?";
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setDate(1, sales.getSalesDate());
             statement.setInt(2, sales.getQuantity());
@@ -74,7 +77,8 @@ public class SalesDAOImpl implements SalesDAO {
             statement.setString(9, sales.getPaymentType().toString());
             statement.setInt(10, sales.getCustomer().getCustomerId());
             statement.setInt(11, sales.getProduct().getProductId());
-            statement.setInt(12, sales.getSalesId());
+            statement.setString(12, sales.getLastModifiedBy());
+            statement.setInt(13, sales.getSalesId());
             int rowsUpdated = statement.executeUpdate();
             if (rowsUpdated > 0) {
                 return true;
