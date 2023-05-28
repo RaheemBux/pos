@@ -35,6 +35,26 @@ CREATE TABLE `customers` (
 
 insert  into `customers`(`customer_id`,`name`,`email`,`contact`,`address`,`customer_type`) values (1,'Test','test@gmail.com','78978789789','Habbibb','CUSTOMER'),(3,'Vendor1','vendor1@gmail.com','09242425','UAE','VENDOR'),(4,'Vendor2','vendor2@gmail.com','09242425232','DUBAI','VENDOR');
 
+/*Table structure for table `ledger` */
+
+DROP TABLE IF EXISTS `ledger`;
+
+CREATE TABLE `ledger` (
+  `ledger_id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_id` int(11) DEFAULT NULL,
+  `order_number` varchar(255) DEFAULT NULL,
+  `amount_paid` double DEFAULT NULL,
+  `amount_remaining` double DEFAULT NULL,
+  `total_amount` double DEFAULT NULL,
+  PRIMARY KEY (`ledger_id`),
+  KEY `customer_id` (`customer_id`),
+  CONSTRAINT `ledger_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+
+/*Data for the table `ledger` */
+
+insert  into `ledger`(`ledger_id`,`customer_id`,`order_number`,`amount_paid`,`amount_remaining`,`total_amount`) values (7,3,'NM-20230521165429',4000,1250,5250),(8,4,'NM-20230521165616',2000,1150,3150);
+
 /*Table structure for table `product` */
 
 DROP TABLE IF EXISTS `product`;
@@ -77,11 +97,11 @@ CREATE TABLE `purchase` (
   KEY `customer_id` (`customer_id`),
   CONSTRAINT `purchase_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`),
   CONSTRAINT `purchased_product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `purchase` */
 
-insert  into `purchase`(`purchase_id`,`product_id`,`customer_id`,`purchase_date`,`quantity`,`unit`,`price`,`amount_paid`,`amount_remaining`,`total_amount`,`purchase_number`,`payment_type`,`is_taxable`) values (1,1,4,'2023-05-18 00:00:00',4,'KG',1000,500,3500,4000,'NM-20230520011329','CASH',NULL),(2,1,3,'2023-05-20 00:00:00',3,'MT',5000,10000,5000,15000,'NM-20230520021256','CASH',1);
+insert  into `purchase`(`purchase_id`,`product_id`,`customer_id`,`purchase_date`,`quantity`,`unit`,`price`,`amount_paid`,`amount_remaining`,`total_amount`,`purchase_number`,`payment_type`,`is_taxable`) values (5,1,3,'2023-05-15 00:00:00',5,'KG',1000,3000,2000,5000,'NM-20230521154237','CASH',0),(6,1,4,'2023-05-15 00:00:00',5,'MT',10000,40000,10000,52500,'NM-20230521154300','ONLINE',1),(7,1,4,'2023-05-10 00:00:00',3,'MT',1000,2000,1150,3150,'NM-20230521163036','CASH',1),(8,1,3,'2023-05-03 00:00:00',4,'KG',1000,3000,1200,4200,'NM-20230521163533','CASH',1),(9,1,3,'2023-05-03 00:00:00',5,'KG',1000,4000,1250,5250,'NM-20230521165429','CASH',1),(10,1,4,'2023-05-19 00:00:00',3,'MT',1000,2000,1150,3150,'NM-20230521165616','ONLINE',1);
 
 /*Table structure for table `sales` */
 
@@ -124,11 +144,11 @@ CREATE TABLE `users` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `users` */
 
-insert  into `users`(`user_id`,`name`,`email`,`password`,`contact`,`address`) values (1,'Sanaullah','sana@gmail.com','saan123','+9731312313123','Palm Jumera beach Dubai');
+insert  into `users`(`user_id`,`name`,`email`,`password`,`contact`,`address`) values (1,'Sanaullah','sana@gmail.com','saan123','+9731312313123','Palm Jumera beach Dubai'),(2,'Admin','admin@gmail.com','admin','009414124','UAE');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

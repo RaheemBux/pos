@@ -29,14 +29,18 @@ public class CustomerDAOImpl implements CustomerDAO {
         boolean success = false;
 
         try (PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO customers (name, email, contact, address, customer_type) "
-                + "VALUES (?, ?, ?, ?, ?)"
+                "INSERT INTO customers (name, email, contact1, address, customer_type,emirates_id,expiry_date,contact2,contact3) "
+                + "VALUES (?, ?, ?, ?, ?,?,?,?,?)"
         )) {
             statement.setString(1, customer.getName());
             statement.setString(2, customer.getEmail());
             statement.setString(3, customer.getContact());
             statement.setString(4, customer.getAddress());
             statement.setString(5, customer.getCustomerType().toString());
+            statement.setString(6, customer.getEmiratesId());
+            statement.setDate(7, customer.getExpiryDate());
+            statement.setString(8, customer.getContact2());
+            statement.setString(9, customer.getContact3());
 
             success = statement.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -51,15 +55,19 @@ public class CustomerDAOImpl implements CustomerDAO {
         boolean success = false;
 
         try (PreparedStatement statement = connection.prepareStatement(
-                "UPDATE customers SET name=?, email=?, contact=?, address=?, customer_type=? "
-                + "WHERE customer_id=?"
+                "UPDATE customers SET name=?, email=?, contact1=?, address=?, customer_type=?, emirates_id=?, expiry_date=? "
+                + ",contact2=?,contact3=? WHERE customer_id=?"
         )) {
             statement.setString(1, customer.getName());
             statement.setString(2, customer.getEmail());
             statement.setString(3, customer.getContact());
             statement.setString(4, customer.getAddress());
             statement.setString(5, customer.getCustomerType().toString());
-            statement.setInt(6, customer.getCustomerId());
+            statement.setString(6, customer.getEmiratesId());
+            statement.setDate(7, customer.getExpiryDate());
+            statement.setString(8, customer.getContact2());
+            statement.setString(9, customer.getContact3());
+            statement.setInt(10, customer.getCustomerId());
 
             success = statement.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -102,9 +110,13 @@ public class CustomerDAOImpl implements CustomerDAO {
                         resultSet.getInt("customer_id"),
                         resultSet.getString("name"),
                         resultSet.getString("email"),
-                        resultSet.getString("contact"),
+                        resultSet.getString("contact1"),
                         resultSet.getString("address"),
-                        CustomerType.valueOf(resultSet.getString("customer_type"))
+                        CustomerType.valueOf(resultSet.getString("customer_type")),
+                        resultSet.getString("emirates_id"),
+                        resultSet.getDate("expiry_date"),
+                        resultSet.getString("contact2"),
+                        resultSet.getString("contact3")
                 );
             }
         } catch (SQLException e) {
@@ -128,9 +140,13 @@ public class CustomerDAOImpl implements CustomerDAO {
                         resultSet.getInt("customer_id"),
                         resultSet.getString("name"),
                         resultSet.getString("email"),
-                        resultSet.getString("contact"),
+                        resultSet.getString("contact1"),
                         resultSet.getString("address"),
-                        CustomerType.valueOf(resultSet.getString("customer_type"))
+                        CustomerType.valueOf(resultSet.getString("customer_type")),
+                        resultSet.getString("emirates_id"),
+                        resultSet.getDate("expiry_date"),
+                        resultSet.getString("contact2"),
+                        resultSet.getString("contact3")
                 );
 
                 customers.add(customer);
@@ -158,9 +174,13 @@ public class CustomerDAOImpl implements CustomerDAO {
                         resultSet.getInt("customer_id"),
                         resultSet.getString("name"),
                         resultSet.getString("email"),
-                        resultSet.getString("contact"),
+                        resultSet.getString("contact1"),
                         resultSet.getString("address"),
-                        CustomerType.valueOf(resultSet.getString("customer_type"))
+                        CustomerType.valueOf(resultSet.getString("customer_type")),
+                        resultSet.getString("emirates_id"),
+                        resultSet.getDate("expiry_date"),
+                        resultSet.getString("contact2"),
+                        resultSet.getString("contact3")
                 );
             }
         } catch (SQLException e) {
