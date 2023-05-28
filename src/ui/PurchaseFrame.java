@@ -827,7 +827,6 @@ public class PurchaseFrame extends javax.swing.JFrame {
     private javax.swing.JLabel phoneLbl;
     private javax.swing.JTextField priceField;
     private javax.swing.JComboBox<String> productCombo;
-    private com.toedter.calendar.JDateChooser purchaseDateField;
     private javax.swing.JLabel purchaseDateLbl;
     private javax.swing.JLabel purchaseNumberField;
     private javax.swing.JTable purchaseTable;
