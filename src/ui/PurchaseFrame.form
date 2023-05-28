@@ -34,9 +34,9 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="32" pref="32" max="-2" attributes="0"/>
                       <Component id="purchaseDateLbl" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
-                      <Component id="purchaseDateField" min="-2" pref="290" max="-2" attributes="0"/>
-                      <EmptySpace min="29" pref="29" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="purchaseDateField" min="-2" pref="286" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="pNumberLbl" min="-2" pref="103" max="-2" attributes="0"/>
                       <EmptySpace min="27" pref="27" max="-2" attributes="0"/>
                       <Component id="purchaseNumberField" min="-2" pref="260" max="-2" attributes="0"/>
@@ -131,20 +131,19 @@
               </Group>
               <EmptySpace min="34" pref="34" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                      <Component id="purchaseDateLbl" min="-2" pref="40" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
-                      <Component id="purchaseDateField" min="-2" pref="40" max="-2" attributes="0"/>
-                  </Group>
                   <Component id="pNumberLbl" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="purchaseNumberField" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="passwordLbl" min="-2" pref="40" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                       <Component id="customerCombo" min="-2" pref="36" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="purchaseDateField" max="32767" attributes="0"/>
+                          <Component id="purchaseDateLbl" pref="40" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace min="44" pref="44" max="-2" attributes="0"/>
@@ -160,20 +159,16 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="39" pref="39" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                              <Component id="addressLbl" min="-2" pref="40" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                              <Component id="priceField" min="-2" pref="40" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                              <Component id="addressLbl2" min="-2" pref="40" max="-2" attributes="0"/>
-                          </Group>
                           <Component id="totalLbl" min="-2" pref="40" max="-2" attributes="0"/>
                           <Component id="totalField" min="-2" pref="38" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="addressLbl" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="priceField" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="addressLbl2" min="-2" pref="40" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
@@ -460,11 +455,6 @@
         <Property name="text" type="java.lang.String" value="Purchase #"/>
       </Properties>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="purchaseDateField">
-      <Properties>
-        <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="purchaseDateLbl">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -522,6 +512,8 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Search"/>
       </Properties>
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="purchaseDateField">
     </Component>
   </SubComponents>
 </Form>
