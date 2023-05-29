@@ -23,7 +23,7 @@ public class DBConnection {
             try {
 
                 Class.forName("com.mysql.jdbc.Driver");
-                conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/battery_scrab_db", "root", "root");
+                conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/battery_scrab_db", "root", "");
             } catch (Exception e) {
                 System.out.println("ERROR: " + e.getMessage());
                 e.printStackTrace();

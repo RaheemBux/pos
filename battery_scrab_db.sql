@@ -37,11 +37,11 @@ CREATE TABLE `customers` (
   `last_modified_by` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`customer_id`),
   UNIQUE KEY `customer_id_UNIQUE` (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `customers` */
 
-insert  into `customers`(`customer_id`,`name`,`email`,`contact1`,`address`,`customer_type`,`emirates_id`,`expiry_Date`,`contact2`,`contact3`,`created_date`,`created_by`,`last_modified_date`,`last_modified_by`) values (1,'Test','test@gmail.com','78978789789','Habbibb','CUSTOMER_VENDOR','EM435535','2023-05-31','4252557','25252255',NULL,NULL,NULL,NULL),(3,'Vendor1','vendor1@gmail.com','09242425','UAE','CUSTOMER_VENDOR','Em546','2023-05-31','325252','2525255',NULL,NULL,NULL,NULL),(4,'Vendor2','vendor2@gmail.com','09242425232','DUBAI','VENDOR',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,'Sanaullah','sanaullah@gmail.com','23482782784','Abu Dhabi','VENDOR',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(6,'hello','hello@gmail.com','8972352253','Dubaiiii','CUSTOMER_VENDOR','EM3535','2023-05-31','4252557','25252255',NULL,NULL,NULL,NULL);
+insert  into `customers`(`customer_id`,`name`,`email`,`contact1`,`address`,`customer_type`,`emirates_id`,`expiry_Date`,`contact2`,`contact3`,`created_date`,`created_by`,`last_modified_date`,`last_modified_by`) values (1,'Test','test@gmail.com','78978789789','Habbibb','CUSTOMER_VENDOR','EM435535','2023-05-31','4252557','25252255',NULL,NULL,NULL,NULL),(3,'Vendor1','vendor1@gmail.com','09242425','UAE','CUSTOMER_VENDOR','Em546','2023-05-31','325252','2525255',NULL,NULL,NULL,NULL),(4,'Vendor2','vendor2@gmail.com','09242425232','DUBAI','VENDOR',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,'Sanaullah','sanaullah@gmail.com','23482782784','Abu Dhabi','VENDOR',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(6,'hello','hello@gmail.com','8972352253','Dubaiiii','CUSTOMER_VENDOR','EM3535','2023-05-31','4252557','25252255',NULL,NULL,NULL,NULL),(7,'Shakeel','shak@nisum.com','03131312442','Dubai','CUSTOMER_VENDOR','EM333231','2023-05-02','03444444422','034253523523','2023-05-29 22:19:31',NULL,NULL,NULL);
 
 /*Table structure for table `expense_category` */
 
@@ -145,6 +145,7 @@ CREATE TABLE `purchase` (
   `purchase_number` varchar(45) DEFAULT NULL,
   `payment_type` enum('CASH','CHEQUE','ONLINE') DEFAULT NULL,
   `is_taxable` tinyint(1) DEFAULT NULL,
+  `tax_amount` double DEFAULT 0,
   `created_date` datetime DEFAULT NULL,
   `created_by` varchar(45) DEFAULT NULL,
   `last_modified_date` datetime DEFAULT NULL,
@@ -159,7 +160,7 @@ CREATE TABLE `purchase` (
 
 /*Data for the table `purchase` */
 
-insert  into `purchase`(`purchase_id`,`product_id`,`customer_id`,`purchase_date`,`quantity`,`unit`,`price`,`amount_paid`,`amount_remaining`,`total_amount`,`purchase_number`,`payment_type`,`is_taxable`,`created_date`,`created_by`,`last_modified_date`,`last_modified_by`) values (5,1,3,'2023-05-15 00:00:00',5,'KG',1000,3000,2000,5000,'NM-20230521154237','CASH',0,NULL,NULL,NULL,NULL),(6,1,4,'2023-05-15 00:00:00',5,'MT',10000,40000,10000,52500,'NM-20230521154300','ONLINE',1,NULL,NULL,NULL,NULL),(7,1,4,'2023-05-10 00:00:00',3,'MT',1000,2000,1150,3150,'NM-20230521163036','CASH',1,NULL,NULL,NULL,NULL),(8,1,3,'2023-05-03 00:00:00',4,'KG',1000,3000,1200,4200,'NM-20230521163533','CASH',1,NULL,NULL,NULL,NULL),(9,1,3,'2023-05-03 00:00:00',5,'KG',1000,4000,1250,5250,'NM-20230521165429','CASH',1,NULL,NULL,NULL,NULL),(10,1,4,'2023-05-19 00:00:00',3,'MT',1000,2000,1150,3150,'NM-20230521165616','ONLINE',1,NULL,NULL,NULL,NULL),(11,3,5,'2023-05-15 00:00:00',5,'MT',1000,3000,2250,5250,'NM-20230521180018','CHEQUE',1,NULL,NULL,NULL,NULL);
+insert  into `purchase`(`purchase_id`,`product_id`,`customer_id`,`purchase_date`,`quantity`,`unit`,`price`,`amount_paid`,`amount_remaining`,`total_amount`,`purchase_number`,`payment_type`,`is_taxable`,`tax_amount`,`created_date`,`created_by`,`last_modified_date`,`last_modified_by`) values (5,1,3,'2023-05-15 00:00:00',5,'KG',1000,3000,2000,5000,'NM-20230521154237','CASH',0,0,NULL,NULL,NULL,NULL),(6,1,4,'2023-05-15 00:00:00',5,'MT',10000,40000,10000,52500,'NM-20230521154300','ONLINE',1,2500,NULL,NULL,NULL,NULL),(7,1,4,'2023-05-10 00:00:00',3,'MT',1000,2000,1150,3150,'NM-20230521163036','CASH',1,150,NULL,NULL,NULL,NULL),(8,1,3,'2023-05-03 00:00:00',4,'KG',1000,3000,1200,4200,'NM-20230521163533','CASH',1,200,NULL,NULL,NULL,NULL),(9,1,3,'2023-05-03 00:00:00',5,'KG',1000,4000,1250,5250,'NM-20230521165429','CASH',1,250,NULL,NULL,NULL,NULL),(10,1,4,'2023-05-19 00:00:00',3,'MT',1000,2000,1150,3150,'NM-20230521165616','ONLINE',1,150,NULL,NULL,NULL,NULL),(11,3,5,'2023-05-15 00:00:00',5,'MT',1000,3000,2250,5250,'NM-20230521180018','CHEQUE',1,250,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `sales` */
 

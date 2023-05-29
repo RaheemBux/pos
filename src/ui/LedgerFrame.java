@@ -11,6 +11,7 @@ import dao.ProductDAO;
 import daoimpl.CustomerDAOImpl;
 import daoimpl.LedgerDAOImpl;
 import daoimpl.ProductDAOImpl;
+import dto.PurchaseLedgerDTO;
 import java.util.List;
 import java.util.Objects;
 import javax.swing.JOptionPane;
@@ -29,7 +30,7 @@ public class LedgerFrame extends javax.swing.JFrame {
     /**
      * Creates new form RegisterFrame
      */
-    Object columns[] = {"Id", "Order-Number", "Customer", "Paid", "Remaining", "Total"};
+    Object columns[] = {"Order-Number", "Customer", "Contact", "Product", "Quantity", "Price", "Total", "Recivied", "Recievable", "Vat"};
 
     DefaultTableModel defaultTableModel = new DefaultTableModel(columns, 0);
 
@@ -41,11 +42,13 @@ public class LedgerFrame extends javax.swing.JFrame {
 
     public LedgerFrame() {
         initComponents();
+        customerCombo.setVisible(false);
+        customerLbl.setVisible(false);
         //editBtn.setEnabled(false);
-       // deleteBtn.setEnabled(false);
+        // deleteBtn.setEnabled(false);
         fillCustomerCombo();
-        fillTable(ledgerDAO.getAllLedgers());
-        setSize(930, 620);
+        fillTable(ledgerDAO.getAllPurchasesLedgers());
+        // setSize(930, 620);
         setLocation(350, 50);
 
     }
@@ -74,20 +77,27 @@ public class LedgerFrame extends javax.swing.JFrame {
 
     public void clearFields() {
         customerCombo.setSelectedIndex(0);
-        orderNumberCombo.setSelectedIndex(0);
     }
 
-    public void fillTable(List<Ledger> ledgers) {
+    public void fillTable(List<PurchaseLedgerDTO> ledgers) {
+        double grandTotal = 0;
         defaultTableModel = new DefaultTableModel(columns, 0);
-        for (Ledger l : ledgers) {
-            Object row[] = {l.getLedgerId(), l.getOrderNumber(), l.getCustomer().getName(),
-                l.getAmountPaid(), l.getAmountRemaining(), l.getTotalAmount()};
+        for (PurchaseLedgerDTO l : ledgers) {
+            Object row[] = {l.getPurchaseNumber(), l.getCustomerName(), l.getContact(),
+                l.getProductName(), l.getQuantity() + " " + l.getUnit(), l.getPrice(), l.getTotalAmount(),
+                l.getAmountPaid(), l.getAmountRemaining(), l.getTaxAmount()};
+            grandTotal += l.getTotalAmount();
             defaultTableModel.addRow(row);
             ledgerTable.setModel(defaultTableModel);
         }
-        ledgerTable.getColumnModel().getColumn(0).setWidth(0);
-        ledgerTable.getColumnModel().getColumn(0).setMinWidth(0);
-        ledgerTable.getColumnModel().getColumn(0).setMaxWidth(0);
+        ledgerTable.getColumnModel().getColumn(0).setWidth(200);
+        ledgerTable.getColumnModel().getColumn(0).setMinWidth(200);
+        ledgerTable.getColumnModel().getColumn(0).setMaxWidth(200);
+        ledgerTable.getColumnModel().getColumn(2).setWidth(150);
+        ledgerTable.getColumnModel().getColumn(2).setMinWidth(150);
+        ledgerTable.getColumnModel().getColumn(2).setMaxWidth(150);
+
+        grandTotalLbl.setText("Grand Total : " + grandTotal);
 
     }
 
@@ -102,26 +112,22 @@ public class LedgerFrame extends javax.swing.JFrame {
 
         headerLbl = new javax.swing.JLabel();
         customerLbl = new javax.swing.JLabel();
-        orderNumLbl = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         ledgerTable = new javax.swing.JTable();
         backBtn = new javax.swing.JButton();
         customerCombo = new javax.swing.JComboBox<>();
-        orderNumberCombo = new javax.swing.JComboBox<>();
         searchField = new javax.swing.JTextField();
         serachLbl = new javax.swing.JLabel();
+        grandTotalLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         headerLbl.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         headerLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        headerLbl.setText("Ledger Details");
+        headerLbl.setText("Purchased Ledger Details");
 
         customerLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         customerLbl.setText("Customer");
-
-        orderNumLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        orderNumLbl.setText("Order #");
 
         ledgerTable.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         ledgerTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -156,12 +162,6 @@ public class LedgerFrame extends javax.swing.JFrame {
             }
         });
 
-        orderNumberCombo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                orderNumberComboActionPerformed(evt);
-            }
-        });
-
         searchField.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         searchField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -172,69 +172,67 @@ public class LedgerFrame extends javax.swing.JFrame {
         serachLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         serachLbl.setText("Search");
 
+        grandTotalLbl.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        grandTotalLbl.setText("Grand Total : 0.0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(grandTotalLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(24, 24, 24)
                             .addComponent(backBtn)
-                            .addGap(173, 173, 173)
+                            .addGap(390, 390, 390)
                             .addComponent(headerLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(55, 55, 55)
+                            .addGap(257, 257, 257)
                             .addComponent(customerLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(customerCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(106, 106, 106)
-                            .addComponent(orderNumLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(orderNumberCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 827, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(246, 246, 246)
-                        .addComponent(serachLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(78, Short.MAX_VALUE))
+                            .addGap(50, 50, 50)
+                            .addComponent(serachLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(26, 26, 26)
+                            .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(36, 36, 36)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1225, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(headerLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(backBtn)))
-                .addGap(18, 18, 18)
+                        .addGap(29, 29, 29)
+                        .addComponent(backBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(headerLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(customerLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(customerCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(orderNumLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(orderNumberCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(serachLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(grandTotalLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                .addGap(7, 7, 7))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ledgerTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ledgerTableMouseClicked
-        ledgerId = (Integer) ledgerTable.getValueAt(ledgerTable.getSelectedRow(), 0);
-       // editBtn.setEnabled(true);
-       // deleteBtn.setEnabled(true);
+        //ledgerId = (Integer) ledgerTable.getValueAt(ledgerTable.getSelectedRow(), 0);
+        // editBtn.setEnabled(true);
+        // deleteBtn.setEnabled(true);
         //Product existingProduct = productDAO.getProductById(ledgerId);
         //setFields(existingProduct);
 
@@ -248,25 +246,21 @@ public class LedgerFrame extends javax.swing.JFrame {
 
     private void customerComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerComboActionPerformed
         String name = customerCombo.getSelectedItem().toString();
+        System.out.println("list size " + name);
         if (!"All".equals(name)) {
             Customer customer = customerDAO.getCustomerByName(name);
-            List<Ledger> customerLedgers = ledgerDAO.getAllLedgersByCustomerId(customer.getCustomerId());
-            System.out.println("list size "+customerLedgers.size());
+            List<PurchaseLedgerDTO> customerLedgers = ledgerDAO.getAllPurchasesLedgerByCustomerId(customer.getCustomerId());
             if (Objects.nonNull(customerLedgers) && customerLedgers.size() > 0) {
                 fillTable(customerLedgers);
-            }else{
+            } else {
                 defaultTableModel.setRowCount(0);
             }
 
         } else {
-            fillTable(ledgerDAO.getAllLedgers());
+            fillTable(ledgerDAO.getAllPurchasesLedgers());
         }
 
     }//GEN-LAST:event_customerComboActionPerformed
-
-    private void orderNumberComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderNumberComboActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_orderNumberComboActionPerformed
 
     private void searchFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyReleased
 
@@ -278,6 +272,13 @@ public class LedgerFrame extends javax.swing.JFrame {
             sorter.setRowFilter(null);
         } else {
             sorter.setRowFilter(RowFilter.regexFilter(content));
+            /*double grandTotal = 0;
+            for (int i = 0; i < defaultTableModel.getRowCount(); i++) {
+               double total = (double)ledgerTable.getValueAt(i, 6);
+                System.out.println("Total :: "+total);
+               grandTotal+= total;
+            }
+            grandTotalLbl.setText("Grand Total : " + grandTotal);*/
         }
     }//GEN-LAST:event_searchFieldKeyReleased
 
@@ -575,11 +576,10 @@ public class LedgerFrame extends javax.swing.JFrame {
     private javax.swing.JButton backBtn;
     private javax.swing.JComboBox<String> customerCombo;
     private javax.swing.JLabel customerLbl;
+    private javax.swing.JLabel grandTotalLbl;
     private javax.swing.JLabel headerLbl;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable ledgerTable;
-    private javax.swing.JLabel orderNumLbl;
-    private javax.swing.JComboBox<String> orderNumberCombo;
     private javax.swing.JTextField searchField;
     private javax.swing.JLabel serachLbl;
     // End of variables declaration//GEN-END:variables

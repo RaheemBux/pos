@@ -4,12 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/ui/PurchaseFrame.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/dao/ExpenseDAO.java</file>
             <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/ui/ProductFrame.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/ui/CustomerFrame.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/daoimpl/CustomerDAOImpl.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/model/Customer.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/daoimpl/UserDAOImpl.java</file>
-            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/model/User.java</file>
             <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/ui/UserFrame.java</file>
         </group>
     </open-files>
