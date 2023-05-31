@@ -5,7 +5,13 @@
         <group>
             <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/ui/PurchaseFrame.java</file>
             <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/dao/ExpenseDAO.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/ui/LedgerFrame.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/dto/PurchaseLedgerDTO.java</file>
             <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/ui/ProductFrame.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/dbmanager/DBConnection.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/ui/CustomerFrame.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/dao/LedgerDAO.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/daoimpl/LedgerDAOImpl.java</file>
             <file>file:/C:/Users/HP/Documents/NetBeansProjects/POS/src/ui/UserFrame.java</file>
         </group>
     </open-files>
