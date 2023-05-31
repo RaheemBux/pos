@@ -17,7 +17,7 @@ import java.util.List;
 import model.ExpenseCategory;
 
 public class ExpenseCategoryDAOImpl implements ExpenseCategoryDAO {
-    
+
     private Connection connection = DBConnection.getConnection();
 
     @Override
@@ -57,7 +57,7 @@ public class ExpenseCategoryDAOImpl implements ExpenseCategoryDAO {
         List<ExpenseCategory> expenseCategories = new ArrayList<>();
         String query = "SELECT * FROM expense_category";
         try (Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
+                ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
                 int categoryId = resultSet.getInt("expense_category_id");
                 String category = resultSet.getString("category");
@@ -96,6 +96,21 @@ public class ExpenseCategoryDAOImpl implements ExpenseCategoryDAO {
         }
         return false;
     }
-}
-       
 
+    @Override
+    public ExpenseCategory getExpenseCategoryByCategory(String category) {
+        String query = "SELECT * FROM expense_category WHERE category = ? limit 1";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, category);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int categoryId = resultSet.getInt("expense_category_id");
+                String cat = resultSet.getString("category");
+                return new ExpenseCategory(categoryId, cat);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+}

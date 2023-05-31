@@ -6,9 +6,7 @@
 package ui;
 
 import dao.ExpenseCategoryDAO;
-import dao.ProductDAO;
 import daoimpl.ExpenseCategoryDAOImpl;
-import daoimpl.ProductDAOImpl;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

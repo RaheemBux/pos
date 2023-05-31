@@ -22,20 +22,19 @@ import model.ExpenseCategory;
 public class ExpenseDAOImpl implements ExpenseDAO {
 
     private Connection connection = DBConnection.getConnection();
-    private ExpenseCategoryDAO  expenseCategoryDAO = new ExpenseCategoryDAOImpl();
+    private ExpenseCategoryDAO expenseCategoryDAO = new ExpenseCategoryDAOImpl();
 
     @Override
     public boolean addExpense(Expense expense) {
-        String query = "INSERT INTO expenses (expense_id, name, ref_number, amount, expense_date, "
-                + "expense_category,created_date,created_by) VALUES (?, ?, ?, ?, ?, ?,now(),?)";
+        String query = "INSERT INTO expenses (name, ref_number, amount, expense_date, "
+                + "expense_category,created_date,created_by) VALUES (?, ?, ?, ?, ?,now(),?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, expense.getExpenseId());
-            statement.setString(2, expense.getName());
-            statement.setString(3, expense.getRefNumber());
-            statement.setDouble(4, expense.getAmount());
+            statement.setString(1, expense.getName());
+            statement.setString(2, expense.getRefNumber());
+            statement.setDouble(3, expense.getAmount());
             statement.setDate(4, new java.sql.Date(expense.getExpenseDate().getTime()));
-            statement.setInt(6, expense.getExpenseCategory().getExpenseCategoryId());
-            statement.setString(7, expense.getCreatedBy());
+            statement.setInt(5, expense.getExpenseCategory().getExpenseCategoryId());
+            statement.setString(6, expense.getCreatedBy());
             int rowsInserted = statement.executeUpdate();
             return rowsInserted > 0;
         } catch (SQLException e) {

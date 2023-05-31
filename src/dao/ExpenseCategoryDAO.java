@@ -18,6 +18,8 @@ public interface ExpenseCategoryDAO {
     List<ExpenseCategory> getAllExpenseCategories();
     boolean updateExpenseCategory(ExpenseCategory expenseCategory);
     boolean deleteExpenseCategory(int expenseCategoryId);
+
+    ExpenseCategory getExpenseCategoryByCategory(String category);
 }
 
 
