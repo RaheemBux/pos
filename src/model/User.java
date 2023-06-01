@@ -11,7 +11,7 @@ import java.sql.Date;
  *
  * @author HP
  */
-public class User {
+public class User extends AuditableEntity{
 
     private int userId;
     private String name;

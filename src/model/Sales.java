@@ -13,7 +13,7 @@ import contants.Unit;
 import contants.PaymentType;
 import java.sql.Date;
 
-public class Sales {
+public class Sales extends AuditableEntity {
 
     private int salesId;
     private Date salesDate;

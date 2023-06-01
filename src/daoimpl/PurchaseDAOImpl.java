@@ -31,8 +31,8 @@ public class PurchaseDAOImpl implements PurchaseDAO {
     @Override
     public boolean addPurchase(Purchase purchase) {
         try {
-            String query = "INSERT INTO purchase(purchase_date, quantity, unit, price, purchase_number, amount_paid, amount_remaining, total_amount, payment_type, customer_id, product_id,is_taxable) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+            String query = "INSERT INTO purchase(purchase_date, quantity, unit, price, purchase_number, amount_paid, amount_remaining, total_amount, payment_type, customer_id, product_id,is_taxable,created_date,created_by) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,now(),?)";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setDate(1, new java.sql.Date(purchase.getPurchaseDate().getTime()));
             ps.setInt(2, purchase.getQuantity());
@@ -46,6 +46,7 @@ public class PurchaseDAOImpl implements PurchaseDAO {
             ps.setInt(10, purchase.getCustomer().getCustomerId());
             ps.setInt(11, purchase.getProduct().getProductId());
             ps.setBoolean(12, purchase.isTaxable());
+            ps.setString(13, purchase.getCreatedBy());
             int count = ps.executeUpdate();
             if (count > 0) {
                 return true;
@@ -59,7 +60,8 @@ public class PurchaseDAOImpl implements PurchaseDAO {
     @Override
     public boolean updatePurchase(Purchase purchase) {
         try {
-            String query = "UPDATE purchase SET purchase_date=?, quantity=?, unit=?, price=?, purchase_number=?, amount_paid=?, amount_remaining=?, total_amount=?, payment_type=?, is_taxable,customer_id=?, product_id=? "
+            String query = "UPDATE purchase SET purchase_date=?, quantity=?, unit=?, price=?, purchase_number=?, amount_paid=?, "
+                    + "amount_remaining=?, total_amount=?, payment_type=?, is_taxable,customer_id=?, product_id=?,last_modified_date=now(),last_modified_by=? "
                     + "WHERE purchase_id=?";
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setDate(1, new java.sql.Date(purchase.getPurchaseDate().getTime()));
@@ -74,7 +76,8 @@ public class PurchaseDAOImpl implements PurchaseDAO {
             ps.setInt(10, purchase.getCustomer().getCustomerId());
             ps.setInt(11, purchase.getProduct().getProductId());
             ps.setBoolean(12, purchase.isTaxable());
-            ps.setInt(13, purchase.getPurchaseId());
+            ps.setString(13, purchase.getLastModifiedBy());
+            ps.setInt(14, purchase.getPurchaseId());
             int count = ps.executeUpdate();
             if (count > 0) {
                 return true;

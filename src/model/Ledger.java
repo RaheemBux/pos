@@ -9,7 +9,7 @@ package model;
  *
  * @author HP
  */
-public class Ledger {
+public class Ledger extends AuditableEntity{
 
     private int ledgerId;
     private String orderNumber;
